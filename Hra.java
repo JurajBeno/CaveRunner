@@ -25,7 +25,7 @@ public class Hra {
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this.ovladanieHracom);
         this.manazer.spravujObjekt(this);
-        this.tovaren = new TovarenNaNehratelnePostavy(pocetNP);
+        new TovarenNaNehratelnePostavy(pocetNP, this.mapa); //po vytvoreni postav dropnem celu instanciu z pamate;
         this.ovladanieNP = new OvladanieNehratelnychPostav(this.mapa);
         System.out.println("[INFO]: hra nacitana");
     }

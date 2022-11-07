@@ -104,6 +104,9 @@ public class OvladanieHracom {
             this.xPoziciaNaPolicku += x;
             this.yPoziciaNaPolicku += y;
         }
+        System.out.println(this.mapa.getSietPreMapu().getSiet().get(this.yPoziciaHracaNaMape + y - 1).get(this.xPoziciaHracaNaMape + x - 1));
+        System.out.println(this.xPoziciaNaPolicku + " " + this.yPoziciaNaPolicku);
+        System.out.println(this.xPoziciaHracaNaMape + " " + this.yPoziciaHracaNaMape);
     }
 
     public void utocenie() {
