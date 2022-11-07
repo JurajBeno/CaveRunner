@@ -14,10 +14,6 @@ public class AnimaciaHraca {
         this.aktualnaPodoba.zobraz();
     }
 
-    public void doNothing() {
-        
-    }
-
     public void zobrazHraca() {
         this.aktualnaPodoba.zobraz();
     } 
