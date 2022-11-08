@@ -34,6 +34,7 @@ public class Hra {
         //System.out.println("tik");
         this.ovladanieHracom.pohybHraca();
         this.ovladanieHracom.utocenie();
+        this.ovladanieNP.vykonajNPAkcie();
     }
 
     public void podajDamage(int[] polohaHraca, int poskodenie) {

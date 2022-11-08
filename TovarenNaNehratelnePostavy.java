@@ -7,7 +7,7 @@ public class TovarenNaNehratelnePostavy {
         this.vytvorNehratelnePostavy();
     }
 
-    public void vytvorNehratelnePostavy() {
+    private void vytvorNehratelnePostavy() {
         //todo
     }
 }
