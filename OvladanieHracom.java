@@ -63,25 +63,26 @@ public class OvladanieHracom {
             return;
         }
         if (this.pohybDole && this.jePriestorVolny(0, 1)) {
+            System.out.println("this is working tooo dole");
             this.mapa.posunMapyVertikalne(this.rycholostHraca * -1);
             this.animacia.setCinnost("chodenie");
             this.animacia.posunAnimaciu("Dolu");
-            this.pohybNaPolicku(0, this.rycholostHraca);
+            this.yPoziciaHracaNaMape += 1;
         } else if (this.pohybHore && this.jePriestorVolny(0, -1)) {
             this.mapa.posunMapyVertikalne(this.rycholostHraca);
             this.animacia.setCinnost("chodenie");
             this.animacia.posunAnimaciu("Hore");
-            this.pohybNaPolicku(0, -this.rycholostHraca);
+            this.yPoziciaHracaNaMape -= 1;
         } else if (this.pohybVlavo && this.jePriestorVolny(-1, 0)) {
             this.mapa.posunMapyHorizontalne(this.rycholostHraca * -1);
             this.animacia.setCinnost("chodenie");
             this.animacia.posunAnimaciu("Dolava");
-            this.pohybNaPolicku(-this.rycholostHraca, 0);
+            this.xPoziciaHracaNaMape += 1;
         } else if (this.pohybVpravo && this.jePriestorVolny(1, 0)) {
             this.mapa.posunMapyHorizontalne(this.rycholostHraca);
             this.animacia.setCinnost("chodenie");
             this.animacia.posunAnimaciu("DoPrava");
-            this.pohybNaPolicku(this.rycholostHraca, 0);
+            this.xPoziciaHracaNaMape -= 1;
         }
     }
 
@@ -106,7 +107,7 @@ public class OvladanieHracom {
             this.xPoziciaNaPolicku += x;
             this.yPoziciaNaPolicku += y;
         }
-        System.out.println(this.mapa.getSietPreMapu().getSiet().get(this.yPoziciaHracaNaMape + y - 1).get(this.xPoziciaHracaNaMape + x - 1));
+        System.out.println(this.mapa.getSietPreMapu().getSiet()[this.yPoziciaHracaNaMape + y - 1][this.xPoziciaHracaNaMape + x - 1]);
         System.out.println(this.xPoziciaNaPolicku + " " + this.yPoziciaNaPolicku);
         System.out.println(this.xPoziciaHracaNaMape + " " + this.yPoziciaHracaNaMape);
     }
@@ -132,7 +133,7 @@ public class OvladanieHracom {
     }
 
     private boolean jePriestorVolny(int x, int y) {
-        return this.mapa.getSietPreMapu().getSiet().get(this.yPoziciaHracaNaMape + y - 1).get(this.xPoziciaHracaNaMape + x - 1) == -1;
+        return this.mapa.getSietPreMapu().getSiet()[this.yPoziciaHracaNaMape + y - 1][this.xPoziciaHracaNaMape + x - 1] == -1;
     }
 
     public void utoc() {
@@ -144,6 +145,7 @@ public class OvladanieHracom {
     }
 
     public void chodVpravo() {
+        System.out.println("chod v pravo omg");
         this.pohybVpravo = true;
     }
 
