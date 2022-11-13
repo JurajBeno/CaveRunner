@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SietPreMapu {
     private String nazovMapy;
@@ -10,7 +8,9 @@ public class SietPreMapu {
 
     public SietPreMapu(String nazovMapy) {
         this.nazovMapy = nazovMapy;
-        this.mapa = this.ziskajMapu();
+        int[][] sietZCSV = this.ziskajMapu();
+        this.mapa = sietZCSV;
+        this.mapa = this.zvacMapuStvornasobne(sietZCSV);
     }
 
     public int[][] getSiet() {
@@ -25,21 +25,28 @@ public class SietPreMapu {
             System.out.println();
         }
     }
-    private int[][] stvorNasobRiadok(int[] riadok, int[][] stavacSiete, int cisloRiadku) {
-        int poziciaVRiadku = 0;
-        for (int policko : riadok) {
-            for (int i = 0; i < 4; i++) {
-                stavacSiete[cisloRiadku][poziciaVRiadku + i] = policko;
+
+    //todo dobre teraz len musim opravit to aby to hadzalo po styri riadky, lebo zatial to len 4x predlzi kazdy riadok
+    private int[][] zvacMapuStvornasobne(int[][] siet) {
+        int[][] vyslednaSiet = new int[65 * 4][65 * 4];
+        for (int i = 0; i < siet.length * 4 ; i += 4) {
+            int poziciaVRiadku = 0;
+            for (int j = 0; j < siet.length; j++) {
+                for (int k = 0; k < 4; k++) {
+                    System.out.println(i + " " + poziciaVRiadku + " " + k);
+                    vyslednaSiet[i][poziciaVRiadku + k] = siet[i][j]; // todo upravit to tu aby som len vytvoril riadok a dalsi for cyklus ktory ho zostvori
+                }
+
+                poziciaVRiadku += 4;
             }
-            poziciaVRiadku += 4;
         }
-        return stavacSiete;
+        return vyslednaSiet;
     }
 
     private int[][] ziskajMapu() {
         String cesta = String.format("TiledResources\\%s_walls.csv", this.nazovMapy);
         String riadok = "";
-        int[][] stavacMapy = new int[65 * 4][65 * 4];
+        int[][] stavacMapy = new int[65][65];
         BufferedReader nahravac = null;
         try {
             int cisloRiadku = 0;
@@ -50,7 +57,7 @@ public class SietPreMapu {
                 for (int i = 0; i < riadokStringov.length; i++) {
                     riadokHodnot[i] = Integer.parseInt(riadokStringov[i]);
                 }
-                stavacMapy = this.stvorNasobRiadok(riadokHodnot, stavacMapy, cisloRiadku); 
+                stavacMapy[cisloRiadku] = riadokHodnot;
                 cisloRiadku += 1;
             }
         } catch (Exception e) {
