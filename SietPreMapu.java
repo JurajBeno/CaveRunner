@@ -25,17 +25,13 @@ public class SietPreMapu {
             System.out.println();
         }
     }
-    //todo urobim to na hotovej mape nie takto ze kazdy riadok, bo z tochoto by ma drislo
     private int[][] stvorNasobRiadok(int[] riadok, int[][] stavacSiete, int cisloRiadku) {
         int poziciaVRiadku = 0;
         for (int policko : riadok) {
             for (int i = 0; i < 4; i++) {
-                System.out.println(policko);
-                System.out.println(cisloRiadku);
-                System.out.println(i);
                 stavacSiete[cisloRiadku][poziciaVRiadku + i] = policko;
             }
-            poziciaVRiadku += 1 + 4;
+            poziciaVRiadku += 4;
         }
         return stavacSiete;
     }

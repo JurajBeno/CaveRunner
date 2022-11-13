@@ -10,8 +10,6 @@ public class OvladanieHracom {
 
     private int xPoziciaHracaNaMape;
     private int yPoziciaHracaNaMape;
-    private int xPoziciaNaPolicku;
-    private int yPoziciaNaPolicku;
 
     private boolean pohybHore;
     private boolean pohybDole;
@@ -27,10 +25,8 @@ public class OvladanieHracom {
 
     public OvladanieHracom(int x, int y, Mapa mapa, int rycholostHraca, int poskodenie, int zivot) {
         this.mapa = mapa;
-        this.xPoziciaHracaNaMape = this.mapa.getVelkostMapy() / 2 + 1;
-        this.yPoziciaHracaNaMape = this.mapa.getVelkostMapy() / 2 + 1;
-        this.xPoziciaNaPolicku = 0;
-        this.yPoziciaNaPolicku = 0;
+        this.xPoziciaHracaNaMape = (this.mapa.getVelkostMapy() / 2 + 1) * 4;
+        this.yPoziciaHracaNaMape = (this.mapa.getVelkostMapy() / 2 + 1) * 4;
         this.animacia = new AnimaciaHraca(x, y);
         this.pohybHore = false;
         this.pohybDole = false;
@@ -84,32 +80,6 @@ public class OvladanieHracom {
             this.animacia.posunAnimaciu("DoPrava");
             this.xPoziciaHracaNaMape -= 1;
         }
-    }
-
-    //todo upravit tak aby rozlisovalo ci idem dole alebo hore
-    //todo
-    public void pohybNaPolicku(int x, int y) {
-        if (Math.abs(this.xPoziciaNaPolicku + x) == 32) {
-            if (x < 0) {
-                this.xPoziciaHracaNaMape -= 1;
-            } else {
-                this.xPoziciaHracaNaMape += 1;
-            }
-            this.xPoziciaNaPolicku = 0;
-        } else if (Math.abs(this.yPoziciaNaPolicku + y) == 32) {
-            if (y < 0) {
-                this.yPoziciaHracaNaMape -= 1;
-            } else {
-                this.yPoziciaHracaNaMape += 1;
-            }
-            this.yPoziciaNaPolicku = 0;
-        } else {
-            this.xPoziciaNaPolicku += x;
-            this.yPoziciaNaPolicku += y;
-        }
-        System.out.println(this.mapa.getSietPreMapu().getSiet()[this.yPoziciaHracaNaMape + y - 1][this.xPoziciaHracaNaMape + x - 1]);
-        System.out.println(this.xPoziciaNaPolicku + " " + this.yPoziciaNaPolicku);
-        System.out.println(this.xPoziciaHracaNaMape + " " + this.yPoziciaHracaNaMape);
     }
 
     public void utocenie() {
