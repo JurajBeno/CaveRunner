@@ -26,19 +26,24 @@ public class SietPreMapu {
         }
     }
 
-    //todo dobre teraz len musim opravit to aby to hadzalo po styri riadky, lebo zatial to len 4x predlzi kazdy riadok
+    //todo tak aj to co fungovalo nefunguje
     private int[][] zvacMapuStvornasobne(int[][] siet) {
         int[][] vyslednaSiet = new int[65 * 4][65 * 4];
-        for (int i = 0; i < siet.length * 4 ; i += 4) {
+        int riadokVyslednejSiete = 0;
+        for (int i = 0; i < siet.length; i++) {
             int poziciaVRiadku = 0;
             for (int j = 0; j < siet.length; j++) {
+                int[] jedenRiadok = new int[65 * 4];
                 for (int k = 0; k < 4; k++) {
-                    System.out.println(i + " " + poziciaVRiadku + " " + k);
-                    vyslednaSiet[i][poziciaVRiadku + k] = siet[i][j]; // todo upravit to tu aby som len vytvoril riadok a dalsi for cyklus ktory ho zostvori
+                    //System.out.println(i + " " + poziciaVRiadku + " " + k);
+                    jedenRiadok[poziciaVRiadku + k] = siet[i][j];
                 }
-
                 poziciaVRiadku += 4;
+                for (int l = 0; l < 4; l++) {
+                    vyslednaSiet[riadokVyslednejSiete + l] = jedenRiadok;
+                }
             }
+            riadokVyslednejSiete += 4;
         }
         return vyslednaSiet;
     }
