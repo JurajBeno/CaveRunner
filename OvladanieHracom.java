@@ -86,6 +86,7 @@ public class OvladanieHracom {
     }
 
     //todo upravit tak aby rozlisovalo ci idem dole alebo hore
+    //todo
     public void pohybNaPolicku(int x, int y) {
         if (Math.abs(this.xPoziciaNaPolicku + x) == 32) {
             if (x < 0) {
