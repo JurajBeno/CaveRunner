@@ -23,10 +23,12 @@ public class OvladanieHracom {
 
     private Hra hra;
 
+    //todo atributy: pohybu, utoku, zivota, rychlosti presunut do triedy hrac, vytvorit komunikaciu triedy hrac s ovladanim hraca
+
     public OvladanieHracom(int x, int y, Mapa mapa, int rycholostHraca, int poskodenie, int zivot) {
         this.mapa = mapa;
-        this.xPoziciaHracaNaMape = (this.mapa.getVelkostMapy() / 2 + 1) * 4;
-        this.yPoziciaHracaNaMape = (this.mapa.getVelkostMapy() / 2 + 1) * 4;
+        this.xPoziciaHracaNaMape = 131;
+        this.yPoziciaHracaNaMape = 132;
         this.animacia = new AnimaciaHraca(x, y);
         this.pohybHore = false;
         this.pohybDole = false;
@@ -59,7 +61,6 @@ public class OvladanieHracom {
             return;
         }
         if (this.pohybDole && this.jePriestorVolny(0, 1)) {
-            System.out.println("this is working tooo dole");
             this.mapa.posunMapyVertikalne(this.rycholostHraca * -1);
             this.animacia.setCinnost("chodenie");
             this.animacia.posunAnimaciu("Dolu");
@@ -73,15 +74,16 @@ public class OvladanieHracom {
             this.mapa.posunMapyHorizontalne(this.rycholostHraca * -1);
             this.animacia.setCinnost("chodenie");
             this.animacia.posunAnimaciu("Dolava");
-            this.xPoziciaHracaNaMape += 1;
+            this.xPoziciaHracaNaMape -= 1;
         } else if (this.pohybVpravo && this.jePriestorVolny(1, 0)) {
             this.mapa.posunMapyHorizontalne(this.rycholostHraca);
             this.animacia.setCinnost("chodenie");
             this.animacia.posunAnimaciu("DoPrava");
-            this.xPoziciaHracaNaMape -= 1;
+            this.xPoziciaHracaNaMape += 1;
         }
     }
 
+    //todo animacia smerom ktorym bol hrac otoceny
     public void utocenie() {
         if (this.utok) {
             this.animacia.setCinnost("utok");
@@ -96,13 +98,15 @@ public class OvladanieHracom {
 
     private void dajDamage() {
         if (this.hra == null) {
-            System.out.println("Hrca nebol spojeny s triedou hra");
+            System.out.println("Hrac nebol spojeny s triedou hra");
         } else {
             this.hra.podajDamage(new int[]{this.xPoziciaHracaNaMape, this.yPoziciaHracaNaMape}, this.poskodenie);
         }
     }
 
     private boolean jePriestorVolny(int x, int y) {
+        //System.out.println("blok pos y: " + (this.yPoziciaHracaNaMape + y - 1) + " pos x: " + (this.xPoziciaHracaNaMape + x - 1));
+        //System.out.println("cislo bloku: " + this.mapa.getSietPreMapu().getSiet()[this.yPoziciaHracaNaMape + y - 1][this.xPoziciaHracaNaMape + x - 1]);
         return this.mapa.getSietPreMapu().getSiet()[this.yPoziciaHracaNaMape + y - 1][this.xPoziciaHracaNaMape + x - 1] == -1;
     }
 
@@ -115,7 +119,6 @@ public class OvladanieHracom {
     }
 
     public void chodVpravo() {
-        System.out.println("chod v pravo omg");
         this.pohybVpravo = true;
     }
 

@@ -9,11 +9,11 @@ public class Hra {
      * NP = NehratelnaPostava (programom ovladana)
      */
     public Hra() {
-        //TODO ovladanieNehratelnych postav, este neviem ako moc to tu rozbehnut, ukoncienie hry
+        //TODO ovladanieNehratelnych postav, este neviem ako moc to tu rozbehnut, spustenie a ukoncienie hry
         //nastavenia:
         int y = 240;
         int x = 426;
-        int rycholostHraca = 8; //zmena rozbije kontrolovanie stien, kedze policko ma stranu 32px (rychlost je 1/4)
+        int rycholostHraca = 8;
         int velkostMapy = 65;
         int poskodenie = 32;
         int zivot = 256;

@@ -10,7 +10,7 @@ public class SietPreMapu {
         this.nazovMapy = nazovMapy;
         int[][] sietZCSV = this.ziskajMapu();
         this.mapa = sietZCSV;
-        this.mapa = this.zvacMapuStvornasobne(sietZCSV);
+        this.mapa = this.zvacsMapu();
     }
 
     public int[][] getSiet() {
@@ -27,26 +27,26 @@ public class SietPreMapu {
     }
 
     //todo tak aj to co fungovalo nefunguje
-    private int[][] zvacMapuStvornasobne(int[][] siet) {
-        int[][] vyslednaSiet = new int[65 * 4][65 * 4];
-        int riadokVyslednejSiete = 0;
-        for (int i = 0; i < siet.length; i++) {
-            int poziciaVRiadku = 0;
-            for (int j = 0; j < siet.length; j++) {
-                int[] jedenRiadok = new int[65 * 4];
-                for (int k = 0; k < 4; k++) {
-                    //System.out.println(i + " " + poziciaVRiadku + " " + k);
-                    jedenRiadok[poziciaVRiadku + k] = siet[i][j];
+    private int[][] zvacsMapu() {
+        int[][] vysledok = new int[65 * 4][65 * 4];
+        int poradieRiadkuMapy = 0;
+        for (int[] riadok: this.mapa) {
+            int[] novyRiadok = new int[65 * 4];
+            int poradieCislaRiadku = 0;
+            for (int cislo: riadok){
+                for (int i = 0; i < 4; i++) {
+                    novyRiadok[poradieCislaRiadku + i] = cislo;
                 }
-                poziciaVRiadku += 4;
-                for (int l = 0; l < 4; l++) {
-                    vyslednaSiet[riadokVyslednejSiete + l] = jedenRiadok;
-                }
+                poradieCislaRiadku += 4;
             }
-            riadokVyslednejSiete += 4;
+            for (int i = 0; i < 4; i++) {
+                vysledok[poradieRiadkuMapy + i] = novyRiadok;
+            }
+            poradieRiadkuMapy += 4;
         }
-        return vyslednaSiet;
+        return vysledok;
     }
+    
 
     private int[][] ziskajMapu() {
         String cesta = String.format("TiledResources\\%s_walls.csv", this.nazovMapy);

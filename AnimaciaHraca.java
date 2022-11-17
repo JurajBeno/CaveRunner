@@ -10,7 +10,7 @@ public class AnimaciaHraca {
         this.cisloAnimacie = 0;
         this.cinnost = "chodenie";
         this.aktualnaPodoba = new Obrazok(String.format("animacie\\%s%s\\%s%s%s.png", this.cinnost, this.smer, this.cinnost, this.smer, this.cisloAnimacie));
-        this.aktualnaPodoba.zmenPolohu(x, y);
+        this.aktualnaPodoba.zmenPolohu(x + 3, y);
         this.aktualnaPodoba.zobraz();
     }
 
