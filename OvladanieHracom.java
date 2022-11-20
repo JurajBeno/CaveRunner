@@ -8,41 +8,22 @@ public class OvladanieHracom {
     private Mapa mapa;
     private AnimaciaHraca animacia;
 
-    private int xPoziciaHracaNaMape;
-    private int yPoziciaHracaNaMape;
+    private Hrac hrac;
 
-    private boolean pohybHore;
-    private boolean pohybDole;
-    private boolean pohybVpravo;
-    private boolean pohybVlavo;
-    private boolean utok;
-
-    private int rycholostHraca;
-    private int poskodenie;
-    private int zivot;
 
     private Hra hra;
 
-    //todo atributy: pohybu, utoku, zivota, rychlosti presunut do triedy hrac, vytvorit komunikaciu triedy hrac s ovladanim hraca
-
     public OvladanieHracom(int x, int y, Mapa mapa, int rycholostHraca, int poskodenie, int zivot) {
         this.mapa = mapa;
-        this.xPoziciaHracaNaMape = 131;
-        this.yPoziciaHracaNaMape = 132;
+
+        this.hrac = new Hrac(131, 132, rycholostHraca, zivot, poskodenie);
         this.animacia = new AnimaciaHraca(x, y);
-        this.pohybHore = false;
-        this.pohybDole = false;
-        this.pohybVpravo = false;
-        this.pohybVlavo = false;
-        this.utok = false;
-        this.rycholostHraca = rycholostHraca;
-        this.poskodenie = poskodenie;
-        this.zivot = zivot;
+        
         this.hra = null;
     }
 
     public void skontrolujZivot() {
-        if (this.zivot < 1) {
+        if (this.hrac.getZivot() < 1) {
             this.umri();
         }
     }
@@ -57,42 +38,31 @@ public class OvladanieHracom {
 
     //https://www.youtube.com/shorts/8_gPlajc9T8 https://www.youtube.com/shorts/CV5eynXK0Tg https://www.youtube.com/shorts/ZJ2RxzMwhH8
     public void pohybHraca() {
-        if (this.utok) {
+        if (this.hrac.getUtok()) {
+            System.out.println("a toto sa deje???");
             return;
         }
-        if (this.pohybDole && this.jePriestorVolny(0, 1)) {
-            this.mapa.posunMapyVertikalne(this.rycholostHraca * -1);
+        //todo otocenie animacie spravnym smerom
+        if (this.hrac.getHybeSa() && this.jePriestorVolny(this.hrac.getSmerPohybu())) {
+            this.mapa.posunPozadie(this.hrac.getRychlostHraca() * -1, this.hrac.getSmerPohybu());
             this.animacia.setCinnost("chodenie");
-            this.animacia.posunAnimaciu("Dolu");
-            this.yPoziciaHracaNaMape += 1;
-        } else if (this.pohybHore && this.jePriestorVolny(0, -1)) {
-            this.mapa.posunMapyVertikalne(this.rycholostHraca);
-            this.animacia.setCinnost("chodenie");
-            this.animacia.posunAnimaciu("Hore");
-            this.yPoziciaHracaNaMape -= 1;
-        } else if (this.pohybVlavo && this.jePriestorVolny(-1, 0)) {
-            this.mapa.posunMapyHorizontalne(this.rycholostHraca * -1);
-            this.animacia.setCinnost("chodenie");
-            this.animacia.posunAnimaciu("Dolava");
-            this.xPoziciaHracaNaMape -= 1;
-        } else if (this.pohybVpravo && this.jePriestorVolny(1, 0)) {
-            this.mapa.posunMapyHorizontalne(this.rycholostHraca);
-            this.animacia.setCinnost("chodenie");
-            this.animacia.posunAnimaciu("DoPrava");
-            this.xPoziciaHracaNaMape += 1;
+            this.animacia.posunAnimaciu("Dolu"); //todo ktorym smerom ide animacia
+            this.hrac.zmenPoziciuHracaNaMape(this.hrac.getSmerPohybu());
+            System.out.println("toto sa ale deje");
+        
         }
     }
 
     //todo animacia smerom ktorym bol hrac otoceny
     public void utocenie() {
-        if (this.utok) {
+        if (this.hrac.getUtok()) {
             this.animacia.setCinnost("utok");
             this.animacia.posunAnimaciuUtoku();
         }
         if (this.animacia.getCisloAnimacie() > 6) {
             this.animacia.setCisloAnimacie(0);
             this.dajDamage();
-            this.utok = false;
+            this.hrac.setUtok(false);
         }
     }
 
@@ -100,53 +70,55 @@ public class OvladanieHracom {
         if (this.hra == null) {
             System.out.println("Hrac nebol spojeny s triedou hra");
         } else {
-            this.hra.podajDamage(new int[]{this.xPoziciaHracaNaMape, this.yPoziciaHracaNaMape}, this.poskodenie);
+            this.hra.podajDamage(this.hrac.getPoziciaHracaNaMape(), this.hrac.getPoskodenie());
         }
     }
 
-    private boolean jePriestorVolny(int x, int y) {
+    private boolean jePriestorVolny(int[] smer) {
+        System.out.println(smer[0]+ " " + smer[1]);
+        System.out.println(this.hrac.getPoziciaHracaNaMape()[0] + " " + this.hrac.getPoziciaHracaNaMape()[1]);
         //System.out.println("blok pos y: " + (this.yPoziciaHracaNaMape + y - 1) + " pos x: " + (this.xPoziciaHracaNaMape + x - 1));
-        //System.out.println("cislo bloku: " + this.mapa.getSietPreMapu().getSiet()[this.yPoziciaHracaNaMape + y - 1][this.xPoziciaHracaNaMape + x - 1]);
-        return this.mapa.getSietPreMapu().getSiet()[this.yPoziciaHracaNaMape + y - 1][this.xPoziciaHracaNaMape + x - 1] == -1;
+        System.out.println("cislo bloku: " + this.mapa.getSietPreMapu().getSiet()[this.hrac.getPoziciaHracaNaMape()[0] + smer[0] - 1][this.hrac.getPoziciaHracaNaMape()[1] + smer[1] - 1]);
+        return this.mapa.getSietPreMapu().getSiet()[this.hrac.getPoziciaHracaNaMape()[0] + smer[0] - 1][this.hrac.getPoziciaHracaNaMape()[1] + smer[1] - 1] == -1;
     }
 
     public void utoc() {
-        this.utok = true;
+        this.hrac.setUtok(true);
     }
 
     public int[] poziciaHraca() {
-        return new int[]{this.xPoziciaHracaNaMape, this.yPoziciaHracaNaMape};
+        return this.hrac.getPoziciaHracaNaMape();
     }
 
     public void chodVpravo() {
-        this.pohybVpravo = true;
+        this.hrac.zmenSmer(new int[] {0, 1});
     }
 
     public void chodVlavo() {
-        this.pohybVlavo = true;
+        this.hrac.zmenSmer(new int[] {0, -1});
     }
     
     public void chodHore() {
-        this.pohybHore = true;
+        this.hrac.zmenSmer(new int[] {-1, 0});
     }
     
     public void chodDole() {
-        this.pohybDole = true;
+        this.hrac.zmenSmer(new int[] {1, 0});
     }
 
     public void prestanChoditVlavo() {
-        this.pohybVlavo = false;
+        this.hrac.zmenSmer(new int[2]);
     }
 
     public void prestanChoditVpravo() {
-        this.pohybVpravo = false;
+        this.hrac.zmenSmer(new int[2]);
     }
 
     public void prestanChoditDole() {
-        this.pohybDole = false;
+        this.hrac.zmenSmer(new int[2]);
     }
 
     public void prestanChoditHore() {
-        this.pohybHore = false;
+        this.hrac.zmenSmer(new int[2]);
     }
 }
