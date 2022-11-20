@@ -57,8 +57,9 @@ public class Hrac {
         return this.smerPohybu;
     }
 
-    public void zmenSmer(int[] smer) {
-        this.smerPohybu = smer;
+    public void zmenSmer(int y, int x) {
+        this.smerPohybu[0] = y;
+        this.smerPohybu[1] = x;
     }
 
     public int getPoskodenie() {
