@@ -10,13 +10,14 @@ public class SietPreMapu {
         this.nazovMapy = nazovMapy;
         int[][] sietZCSV = this.ziskajMapu();
         this.mapa = sietZCSV;
-        this.mapa = this.zvacsMapu();
+        this.mapa = this.zvacMapu();
     }
 
     public int[][] getSiet() {
         return this.mapa;
     }
 
+    /** pre debugovanie, vo vyslednom odovzdani bude vymazane */
     public void vypisMapu() {
         for (int[] riadok: this.mapa) {
             for (int i: riadok) {
@@ -26,8 +27,11 @@ public class SietPreMapu {
         }
     }
 
-    //todo tak aj to co fungovalo nefunguje
-    private int[][] zvacsMapu() {
+    /* mapa musi byt 4-krat zvacsena pre plynulejsi pohyb,
+     * skusal som to riesit rozdelenim policka na rovnake casti pouzitim modulo
+     * ale potom mi postavicka liezola do stien
+      */
+    private int[][] zvacMapu() {
         int[][] vysledok = new int[65 * 4][65 * 4];
         int poradieRiadkuMapy = 0;
         for (int[] riadok: this.mapa) {
@@ -47,7 +51,10 @@ public class SietPreMapu {
         return vysledok;
     }
     
-
+    /* finally-> try, catch vygenerovane cez VS code
+     * dost mi tu pomohol tento navod
+     * https://www.baeldung.com/java-buffered-reader
+     */
     private int[][] ziskajMapu() {
         String cesta = String.format("TiledResources\\%s_walls.csv", this.nazovMapy);
         String riadok = "";

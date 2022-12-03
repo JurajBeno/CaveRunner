@@ -34,7 +34,6 @@ public class OvladanieHracom {
         this.hra = hra;
     }
 
-    //https://www.youtube.com/shorts/8_gPlajc9T8 https://www.youtube.com/shorts/CV5eynXK0Tg https://www.youtube.com/shorts/ZJ2RxzMwhH8
     public void pohybHraca() {
         if (this.hrac.getUtok()) {
             return;

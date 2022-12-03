@@ -34,5 +34,4 @@ public class Mapa {
     public int getVelkostMapy() {
         return this.velkostMapy;
     }
-    
 }

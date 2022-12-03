@@ -27,7 +27,7 @@ public class NehratelnaPostava {
      */
     public void hladajCestu(int[] stredObrazovky) {
         if (this.jePostavaNaObrazovke(stredObrazovky)) {
-            // todo path finiding
+            // todo prenasledovanie hraca
         }
     }
 

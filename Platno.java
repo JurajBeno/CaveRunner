@@ -65,6 +65,7 @@ public class Platno {
      * @param width  the desired width for the canvas
      * @param height  the desired height for the canvas
      * @param bgClour  the desired background colour of the canvas
+     * Tu som pridal defaultCloseOperation
      */
     private Platno(String titulok, int sirka, int vyska, Color pozadie) {
         this.frame = new JFrame();

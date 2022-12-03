@@ -1,18 +1,10 @@
 
-/**
- * Write a description of class Hrac here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Hrac {
     private int[] poziciaHraca;
 
     private boolean utok;
 
     private int[] smerPohybu;
-
-    private boolean pohyb;
 
     private int rycholostHraca;
     private int poskodenie;
