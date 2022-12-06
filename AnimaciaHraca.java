@@ -7,7 +7,7 @@ public class AnimaciaHraca {
 
     //todo prerobit otacanie animacie hraca, kedze je stale otoceny do predu tak to vyzera ako by to sekalo
     public AnimaciaHraca(int x, int y) {
-        this.smer = "DoPrava";
+        this.smer = "Vpravo";
         this.cisloAnimacie = 0;
         this.cinnost = "chodenie";
         this.aktualnaPodoba = new Obrazok(String.format("animacie\\%s%s\\%s%s%s.png", this.cinnost, this.smer, this.cinnost, this.smer, this.cisloAnimacie));
@@ -37,8 +37,8 @@ public class AnimaciaHraca {
         } else {
             this.cisloAnimacie = 0;
         }
-        this.smer = "Napravo";
-        this.aktualnaPodoba.zmenObrazok(String.format("animacie\\utok%s\\utok%s%s.png", this.smer, this.smer, this.cisloAnimacie));
+        this.smer = "Vpravo";
+        this.aktualnaPodoba.zmenObrazok(String.format("animacie\\utok%s\\utokNapravo%s.png", this.smer, this.cisloAnimacie));
         this.aktualnaPodoba.zobraz();
     }
 
