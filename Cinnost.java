@@ -7,13 +7,14 @@ public enum Cinnost {
     CHOD_DOLU(1, 0, "Dolu", "chod"),
     CHOD_VPRAVO(0, 1, "Vpravo", "chod"),
     CHOD_VLAVO(0, -1, "Vlavo", "chod"),
-    ;
-
+    UTOC_VPRAVO(0, 1, "Vpravo", "utoc"),
+    UTOC_VLAVO(0, -1, "Vlavo", "utoc");
 
     private final int y;
     private final int x;
     private final String otocenieAnimacie;
     private final String nazovCinnosti;
+    
 /**@param x, y su v ktorom smere sa cinnost deje
  * @param otocenieAimacie je smer animacie v ktorom sa deje
 */

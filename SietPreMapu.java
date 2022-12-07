@@ -4,13 +4,12 @@ import java.io.IOException;
 
 public class SietPreMapu {
     private String nazovMapy;
-    private int[][] mapa;
+    private final int[][] mapa;
 
     public SietPreMapu(String nazovMapy) {
         this.nazovMapy = nazovMapy;
         int[][] sietZCSV = this.ziskajMapu();
-        this.mapa = sietZCSV;
-        this.mapa = this.zvacMapu();
+        this.mapa = this.zvacMapu(sietZCSV);
     }
 
     public int[][] getSiet() {
@@ -29,12 +28,12 @@ public class SietPreMapu {
 
     /* mapa musi byt 4-krat zvacsena pre plynulejsi pohyb,
      * skusal som to riesit rozdelenim policka na rovnake casti pouzitim modulo
-     * ale potom mi postavicka liezola do stien
+     * ale potom mi postavicka liezla do stien
       */
-    private int[][] zvacMapu() {
+    private int[][] zvacMapu(int[][] mapaNaZvacsenie) {
         int[][] vysledok = new int[65 * 4][65 * 4];
         int poradieRiadkuMapy = 0;
-        for (int[] riadok: this.mapa) {
+        for (int[] riadok: mapaNaZvacsenie) {
             int[] novyRiadok = new int[65 * 4];
             int poradieCislaRiadku = 0;
             for (int cislo: riadok){
