@@ -21,6 +21,7 @@ public class OvladanieNehratelnychPostav {
             }
         }
     }
+
     public void vykonajNPAkcie() {
         for (NehratelnaPostava postava: this.zoznamNP) {
             // todo vsetko co bude kazdy tik cekovat np

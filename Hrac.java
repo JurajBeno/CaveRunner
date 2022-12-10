@@ -5,6 +5,7 @@ public class Hrac {
     private boolean utok;
 
     private int[] smerPohybu;
+    private Cinnost prebiehajucaCinnost;
 
     private int rycholostHraca;
     private int poskodenie;
@@ -15,6 +16,7 @@ public class Hrac {
         this.poziciaHraca = new int[] {y, x};
         this.rycholostHraca = rycholostHraca;
         this.smerPohybu = new int[] {0, 0}; 
+        this.prebiehajucaCinnost = Cinnost.STOJ;
         this.zivot = zivot;
         this.poskodenie = poskodenie;
     }
@@ -23,14 +25,14 @@ public class Hrac {
         return this.poziciaHraca;
     }
 
-    public void zmenPoziciuHracaNaMape(int[] pohyb) {
-        this.poziciaHraca[0] += pohyb[0];
-        this.poziciaHraca[1] += pohyb[1];
+    public void zmenPoziciuHracaNaMape() {
+        this.poziciaHraca[0] += this.smerPohybu[0];
+        this.poziciaHraca[1] += this.smerPohybu[1];
     
     }
 
     public boolean getHybeSa() {
-        return this.smerPohybu[0] != 0 || this.smerPohybu[1] != 0;
+        return this.prebiehajucaCinnost.getSmer()[0] != 0 || this.prebiehajucaCinnost.getSmer()[1] != 0;
     }
 
     public int getRychlostHraca() {
@@ -45,13 +47,13 @@ public class Hrac {
         this.utok = utok;
     }
 
-    public int[] getSmerPohybu() {
-        return this.smerPohybu;
+    public Cinnost getPrebiehajucaCinnost() {
+        return this.prebiehajucaCinnost;
     }
 
-    public void zmenSmer(int y, int x) {
-        this.smerPohybu[0] = y;
-        this.smerPohybu[1] = x;
+    public void zmentCinnost(Cinnost momentalnaCinnost) {
+        this.smerPohybu = momentalnaCinnost.getSmer();
+        this.prebiehajucaCinnost = momentalnaCinnost;
     }
 
     public int getPoskodenie() {

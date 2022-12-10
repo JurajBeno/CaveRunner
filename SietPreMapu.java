@@ -4,27 +4,27 @@ import java.io.IOException;
 
 public class SietPreMapu {
     private String nazovMapy;
-    private final int[][] mapa;
+    private PoleSieteObal mapa;
 
     public SietPreMapu(String nazovMapy) {
         this.nazovMapy = nazovMapy;
         int[][] sietZCSV = this.ziskajMapu();
-        this.mapa = this.zvacMapu(sietZCSV);
+        this.mapa = new PoleSieteObal(this.zvacMapu(sietZCSV));
     }
 
-    public int[][] getSiet() {
-        return this.mapa;
+    public int getHodnotu(int r, int s) {
+        return this.mapa.getPrvok(r, s);
     }
 
-    /** pre debugovanie, vo vyslednom odovzdani bude vymazane */
+    /** pre debugovanie, vo vyslednom odovzdani bude vymazane 
     public void vypisMapu() {
-        for (int[] riadok: this.mapa) {
+        for (int[] riadok: this.mapa.getPocetRiadkov()) {
             for (int i: riadok) {
                 System.out.print(i);
             }
             System.out.println();
         }
-    }
+    }*/
 
     /* mapa musi byt 4-krat zvacsena pre plynulejsi pohyb,
      * skusal som to riesit rozdelenim policka na rovnake casti pouzitim modulo
@@ -36,7 +36,7 @@ public class SietPreMapu {
         for (int[] riadok: mapaNaZvacsenie) {
             int[] novyRiadok = new int[65 * 4];
             int poradieCislaRiadku = 0;
-            for (int cislo: riadok){
+            for (int cislo: riadok) {
                 for (int i = 0; i < 4; i++) {
                     novyRiadok[poradieCislaRiadku + i] = cislo;
                 }

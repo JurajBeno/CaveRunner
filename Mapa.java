@@ -17,15 +17,15 @@ public class Mapa {
         System.out.println("[INFO]: mapa nacitana");
     }
 
-    public SietPreMapu getSietPreMapu() {
-        return this.sietPreMapu;
+    public int getPrvokMapy(int r, int s) {
+        return this.sietPreMapu.getHodnotu(r, s);
     }
 
     public void posunPozadie(int posun, int[] smer) {
         if (smer[0] != 0) {
             this.y += posun * smer[0];
             this.mapaAkoObr.zmenPolohu(this.x, this.y);
-        } else if(smer[1] != 0) {
+        } else if (smer[1] != 0) {
             this.x += posun * smer[1];
             this.mapaAkoObr.zmenPolohu(this.x, this.y);
         }

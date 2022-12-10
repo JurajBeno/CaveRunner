@@ -2,6 +2,7 @@
 /**
      *  trieda zabezpecuje pohyb hraca po mape
      */
+    //todo HRAC BUDE KOMUNIKOVAT S ANIMACIOU este sa ale rozhodnem
 public class OvladanieHracom {
 
     private Mapa mapa;
@@ -22,12 +23,8 @@ public class OvladanieHracom {
 
     public void skontrolujZivot() {
         if (this.hrac.getZivot() < 1) {
-            this.umri();
+            this.hrac.zmentCinnost(Cinnost.SMRT);
         }
-    }
-
-    private void umri() {
-        //todo
     }
 
     public void spojHru(Hra hra) {
@@ -39,16 +36,16 @@ public class OvladanieHracom {
             return;
         }
         //todo otocenie animacie spravnym smerom
-        if (this.hrac.getHybeSa() && this.jePriestorVolny(this.hrac.getSmerPohybu())) {
-            this.mapa.posunPozadie(this.hrac.getRychlostHraca() * -1, this.hrac.getSmerPohybu());
-            this.animacia.setCinnost("chodenie");
-            this.animacia.posunAnimaciu("Dolu"); //todo ktorym smerom ide animacia
-            this.hrac.zmenPoziciuHracaNaMape(this.hrac.getSmerPohybu());
+        if (this.hrac.getHybeSa() && this.jePriestorVolny(this.hrac.getPrebiehajucaCinnost().getSmer())) {
+            this.mapa.posunPozadie(this.hrac.getRychlostHraca() * -1, this.hrac.getPrebiehajucaCinnost().getSmer());
+            this.animacia.setCinnost(this.hrac.getPrebiehajucaCinnost().getNazovCinoosti());
+            this.animacia.posunAnimaciu(this.hrac.getPrebiehajucaCinnost().getOtocenieAnimacie());
+            this.hrac.zmenPoziciuHracaNaMape();
         
         }
     }
 
-    //todo animacia smerom ktorym bol hrac otoceny
+    //todo utocenie aby bolo trigernute <cinnost.UTOC>
     public void utocenie() {
         if (this.hrac.getUtok()) {
             this.animacia.setCinnost("utok");
@@ -70,15 +67,12 @@ public class OvladanieHracom {
     }
 
     private boolean jePriestorVolny(int[] smer) {
-        //System.out.println(smer[0]+ " " + smer[1]);
-        //System.out.println(this.hrac.getPoziciaHracaNaMape()[0] + " " + this.hrac.getPoziciaHracaNaMape()[1]);
-        //System.out.println("blok pos y: " + (this.yPoziciaHracaNaMape + y - 1) + " pos x: " + (this.xPoziciaHracaNaMape + x - 1));
-        //System.out.println("cislo bloku: " + this.mapa.getSietPreMapu().getSiet()[this.hrac.getPoziciaHracaNaMape()[0] + smer[0] - 1][this.hrac.getPoziciaHracaNaMape()[1] + smer[1] - 1]);
-        return this.mapa.getSietPreMapu().getSiet()[this.hrac.getPoziciaHracaNaMape()[0] + smer[0] - 1][this.hrac.getPoziciaHracaNaMape()[1] + smer[1] - 1] == -1;
+        return this.mapa.getPrvokMapy(this.hrac.getPoziciaHracaNaMape()[0] + smer[0] - 1, this.hrac.getPoziciaHracaNaMape()[1] + smer[1] - 1) == -1;
     }
 
     public void utoc() {
         this.hrac.setUtok(true);
+        //this.hrac.zmentCinnost(Cinnost.UTOC_VPRAVO);
     }
 
     public int[] poziciaHraca() {
@@ -86,34 +80,35 @@ public class OvladanieHracom {
     }
 
     public void chodVpravo() {
-        this.hrac.zmenSmer(0, 1);
+        this.hrac.zmentCinnost(Cinnost.CHOD_VPRAVO);
+
     }
 
     public void chodVlavo() {
-        this.hrac.zmenSmer(0, -1);
+        this.hrac.zmentCinnost(Cinnost.CHOD_VLAVO);
     }
     
     public void chodHore() {
-        this.hrac.zmenSmer(-1, 0);
+        this.hrac.zmentCinnost(Cinnost.CHOD_HORE);
     }
     
     public void chodDole() {
-        this.hrac.zmenSmer(1, 0);
+        this.hrac.zmentCinnost(Cinnost.CHOD_DOLU);
     }
 
     public void prestanChoditVlavo() {
-        this.hrac.zmenSmer(0, 0);
+        this.hrac.zmentCinnost(Cinnost.STOJ);
     }
 
     public void prestanChoditVpravo() {
-        this.hrac.zmenSmer(0, 0);
+        this.hrac.zmentCinnost(Cinnost.STOJ);
     }
 
     public void prestanChoditDole() {
-        this.hrac.zmenSmer(0, 0);
+        this.hrac.zmentCinnost(Cinnost.STOJ);
     }
 
     public void prestanChoditHore() {
-        this.hrac.zmenSmer(0, 0);
+        this.hrac.zmentCinnost(Cinnost.STOJ);
     }
 }
