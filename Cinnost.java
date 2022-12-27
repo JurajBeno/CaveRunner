@@ -1,6 +1,6 @@
-/** enumerator zabezpecenie presunu informacii o smere
- * danej cinnosti hraca a spravnom smere otocenia animacie prisluchajucej ku danej cinnosti
- * 
+/**
+ * Enumerator zabezpecenie presunu informacii o smere
+ * danej cinnosti hraca a spravnom smere otocenia animacie prisluchajucej ku danej cinnosti.
  */
 public enum Cinnost {
     STOJ(0, 0, "Dolu", "Stoj"),
@@ -17,9 +17,9 @@ public enum Cinnost {
     private final String otocenieAnimacie;
     private final String nazovCinnosti;
     
-/**@param x, y su v ktorom smere sa cinnost deje
- * @param otocenieAimacie je smer animacie v ktorom sa deje
-*/
+    /**@param x, y su v ktorom smere sa cinnost deje
+     * @param otocenieAimacie je smer animacie v ktorom sa deje
+     */
     Cinnost(int y, int x, String otocenieAnimacie, String nazovCinnosti) {
         this.smerPohybuY = y;
         this.smerPohybuX = x;
@@ -27,14 +27,17 @@ public enum Cinnost {
         this.nazovCinnosti = nazovCinnosti;
     }
 
+    /** Vrati smer akym sa hrac bude hybat. */
     public int[] getSmer() {
         return new int[] {this.smerPohybuY, this.smerPohybuX};
     }
 
+    /** Vrati nazov smeru ako string pre ovladanie animacii. */
     public String getOtocenieAnimacie() {
         return this.otocenieAnimacie;
     }
 
+    /** Vrati nazov cinnosti ako string pre ovladanie animacii */
     public String getNazovCinoosti() {
         return this.nazovCinnosti;
     }

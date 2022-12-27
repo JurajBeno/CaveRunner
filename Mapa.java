@@ -1,4 +1,7 @@
 
+/**
+ * Trieda zabezpecuje kontrolovanie stien mapy a zmeny polohy mapy.
+ */
 public class Mapa {
     private int x;
     private int y;
@@ -6,6 +9,11 @@ public class Mapa {
     private SietPreMapu sietPreMapu;
     private int velkostMapy;
     
+    /** 
+     * @param x stred mapy na horizontalnej osi
+     * @param y stred mapy na vertikalnej osi
+     * @param nazovLevelu aby mohol byt dany obrazok mapy
+     */
     public Mapa(int x, int y, String nazovLevelu, int velkostMapy) {
         this.sietPreMapu = new SietPreMapu(nazovLevelu);
         this.x = x;
@@ -17,10 +25,18 @@ public class Mapa {
         System.out.println("[INFO]: mapa nacitana");
     }
 
+    /**
+     * Vrati hodnotu z pola mapy na danych suradniciach.
+     */
     public int getPrvokMapy(int r, int s) {
         return this.sietPreMapu.getHodnotu(r, s);
     }
 
+    /** 
+     * Posunie obrazok mapy
+     * o hodnotu @param posun
+     * v  danom @param smer 
+     */
     public void posunPozadie(int posun, int[] smer) {
         if (smer[0] != 0) {
             this.y += posun * smer[0];
@@ -31,6 +47,7 @@ public class Mapa {
         }
     }
 
+    /** Vrati velkost mapy. */
     public int getVelkostMapy() {
         return this.velkostMapy;
     }

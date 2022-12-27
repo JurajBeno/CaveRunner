@@ -1,4 +1,7 @@
 
+/**
+ * Trieda zabezpecuje celu kontorlu nad programom skrz komunikaciu manazera so zvyskom hry.
+ */
 public class Hra {
     private OvladanieHracom ovladanieHracom;
     private Manazer manazer;
@@ -8,6 +11,7 @@ public class Hra {
     /**
      * NP = NehratelnaPostava (programom ovladana)
      */
+    
     public Hra() {
         //TODO ovladanieNehratelnych postav, spustenie a ukoncienie hry
         //nastavenia:

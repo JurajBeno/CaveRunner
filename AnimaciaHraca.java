@@ -5,7 +5,7 @@ public class AnimaciaHraca {
     private int cisloAnimacie;
     private String cinnost;
 
-    //todo prerobit otacanie animacie hraca, kedze je stale otoceny do predu tak to vyzera ako by to sekalo
+    /** Trieda zabezpecuje animovanie cinnosti */
     public AnimaciaHraca(int x, int y) {
         this.smer = "Vpravo";
         this.cisloAnimacie = 0;
