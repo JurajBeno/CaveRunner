@@ -5,7 +5,7 @@ public class Hrac {
     private boolean utok;
 
     private int[] smerPohybu;
-    private Cinnost prebiehajucaCinnost;
+    private CinnostHraca prebiehajucaCinnost;
 
     private int rycholostHraca;
     private int poskodenie;
@@ -19,9 +19,16 @@ public class Hrac {
         this.poziciaHraca = new int[] {y, x};
         this.rycholostHraca = rycholostHraca;
         this.smerPohybu = new int[] {0, 0}; 
-        this.prebiehajucaCinnost = Cinnost.STOJ;
+        this.prebiehajucaCinnost = CinnostHraca.STOJ;
         this.zivot = zivot;
         this.poskodenie = poskodenie;
+    }
+
+    /**
+     * Vrati poziciu hraca na mape.
+     */
+    public int[] getSmerPohybu() {
+        return this.smerPohybu;
     }
 
     /**
@@ -40,8 +47,15 @@ public class Hrac {
     
     }
 
+    /** 
+     * Vrati boolovsku hodnotu ak cinnost je utok.
+     */
+    public boolean getUtoci() {
+        return this.getPrebiehajucaCinnost() == CinnostHraca.UTOC_VLAVO || this.getPrebiehajucaCinnost() == CinnostHraca.UTOC_VPRAVO;
+    }
+
     /**
-     * Vrati boolean hodnotu ak je cinnost pohyb
+     * Vrati boolovsku hodnotu ak cinnost je pohyb.
      */
     public boolean getHybeSa() {
         return this.prebiehajucaCinnost.getSmer()[0] != 0 || this.prebiehajucaCinnost.getSmer()[1] != 0;
@@ -54,31 +68,17 @@ public class Hrac {
         return this.rycholostHraca;
     }
 
-    /**
-     * Vrati boolovsku hodnotu ci prebieha animacia utoku.
-     */
-    public boolean getUtok() {
-        return this.utok;
-    }
-
-    /**
-     * Nastavi utok.
-     */
-    public void setUtok(boolean utok) {
-        this.utok = utok;
-    }
-
     /** 
      * Vrati momentalnu cinnost.
      */
-    public Cinnost getPrebiehajucaCinnost() {
+    public CinnostHraca getPrebiehajucaCinnost() {
         return this.prebiehajucaCinnost;
     }
 
     /** 
-     * @param Cinnost ktoru bude hrac vykonavat.
+     * @param CinnostHraca ktoru bude hrac vykonavat.
      */
-    public void zmentCinnost(Cinnost momentalnaCinnost) {
+    public void zmentCinnost(CinnostHraca momentalnaCinnost) {
         this.smerPohybu = momentalnaCinnost.getSmer();
         this.prebiehajucaCinnost = momentalnaCinnost;
     }

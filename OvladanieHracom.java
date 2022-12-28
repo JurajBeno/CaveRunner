@@ -6,7 +6,7 @@
 public class OvladanieHracom {
 
     private Mapa mapa;
-    private AnimaciaHraca animacia;
+    private Animacia animacia;
     private Hrac hrac;
     private Hra hra;
 
@@ -19,7 +19,7 @@ public class OvladanieHracom {
         this.mapa = mapa;
 
         this.hrac = new Hrac(131, 132, rycholostHraca, zivot, poskodenie);
-        this.animacia = new AnimaciaHraca(x, y);
+        this.animacia = new Animacia(x, y);
         
         this.hra = null;
     }
@@ -27,7 +27,7 @@ public class OvladanieHracom {
     /** skontroluje mnozstvo zivota */
     public void skontrolujZivot() {
         if (this.hrac.getZivot() < 1) {
-            this.hrac.zmentCinnost(Cinnost.SMRT);
+            this.hrac.zmentCinnost(CinnostHraca.SMRT);
         }
     }
 
@@ -38,14 +38,13 @@ public class OvladanieHracom {
 
     /** Ovladanie pohybu hraca, a spravne animacie.*/
     public void pohybHraca() {
-        if (this.hrac.getUtok()) {
+        if (this.hrac.getUtoci()) {
             return;
         }
         //todo otocenie animacie spravnym smerom
         if (this.hrac.getHybeSa() && this.jePriestorVolny(this.hrac.getPrebiehajucaCinnost().getSmer())) {
             this.mapa.posunPozadie(this.hrac.getRychlostHraca() * -1, this.hrac.getPrebiehajucaCinnost().getSmer());
-            this.animacia.setCinnost(this.hrac.getPrebiehajucaCinnost().getNazovCinoosti());
-            this.animacia.posunAnimaciu(this.hrac.getPrebiehajucaCinnost().getOtocenieAnimacie());
+            this.animacia.animuj(this.hrac.getPrebiehajucaCinnost());
             this.hrac.zmenPoziciuHracaNaMape();
         }
     }
@@ -53,14 +52,12 @@ public class OvladanieHracom {
     //todo utocenie aby bolo trigernute <cinnost.UTOC>
     /** Zabezpecuje utocenie. */
     public void utocenie() {
-        if (this.hrac.getUtok()) {
-            this.animacia.setCinnost("utok");
-            this.animacia.posunAnimaciuUtoku();
+        if (this.hrac.getUtoci()) {
+            this.animacia.animuj(this.hrac.getPrebiehajucaCinnost());
         }
-        if (this.animacia.getCisloAnimacie() > 6) {
-            this.animacia.setCisloAnimacie(0);
+        if (this.animacia.getIndexAnimacie() > 6) {
             this.dajDamage();
-            this.hrac.setUtok(false);
+            this.hrac.zmentCinnost(CinnostHraca.STOJ);
         }
     }
 
@@ -77,9 +74,14 @@ public class OvladanieHracom {
     }
 
     /** Spusti posunutie posunutie poskodenia. */
+    // todo toto vyladit aby to uplne fungovalo
     public void utoc() {
-        this.hrac.setUtok(true);
-        //this.hrac.zmentCinnost(Cinnost.UTOC_VPRAVO);
+        int[] smer = this.hrac.getSmerPohybu();
+        if (smer[0] == 1 || smer[1] == 1) {
+            this.hrac.zmentCinnost(CinnostHraca.UTOC_VPRAVO);
+        } else {
+            this.hrac.zmentCinnost(CinnostHraca.UTOC_VLAVO);
+        }
     }
 
     /** Vrati poziciu hraca osi y a osi x. */
@@ -89,50 +91,50 @@ public class OvladanieHracom {
 
     /** Zmenni cinnost na chodenie vpravo. */
     public void chodVpravo() {
-        this.hrac.zmentCinnost(Cinnost.CHOD_VPRAVO);
+        this.hrac.zmentCinnost(CinnostHraca.CHOD_VPRAVO);
 
     }
 
     /** Zmenni cinnost na chodenie vlavo. */
     public void chodVlavo() {
-        this.hrac.zmentCinnost(Cinnost.CHOD_VLAVO);
+        this.hrac.zmentCinnost(CinnostHraca.CHOD_VLAVO);
     }
     
     /** Zmenni cinnost na chodenie smerom hore. */
     public void chodHore() {
-        this.hrac.zmentCinnost(Cinnost.CHOD_HORE);
+        this.hrac.zmentCinnost(CinnostHraca.CHOD_HORE);
     }
     
     /** Zmenni cinnost na chodenie smerom dolu. */
     public void chodDole() {
-        this.hrac.zmentCinnost(Cinnost.CHOD_DOLU);
+        this.hrac.zmentCinnost(CinnostHraca.CHOD_DOLU);
     }
 
     /** Zmenni cinnost z chodenia vlavo na statie. */
     public void prestanChoditVlavo() {
-        if (this.hrac.getPrebiehajucaCinnost() == Cinnost.CHOD_VLAVO) {
-            this.hrac.zmentCinnost(Cinnost.STOJ);
+        if (this.hrac.getPrebiehajucaCinnost() == CinnostHraca.CHOD_VLAVO) {
+            this.hrac.zmentCinnost(CinnostHraca.STOJ);
         }
     }
 
     /** Zmenni cinnost z chodenia vpravo na statie. */
     public void prestanChoditVpravo() {
-        if (this.hrac.getPrebiehajucaCinnost() == Cinnost.CHOD_VPRAVO) {
-            this.hrac.zmentCinnost(Cinnost.STOJ);
+        if (this.hrac.getPrebiehajucaCinnost() == CinnostHraca.CHOD_VPRAVO) {
+            this.hrac.zmentCinnost(CinnostHraca.STOJ);
         }
     }
 
     /** Zmenni cinnost z chodenia dolu na statie. */
     public void prestanChoditDole() {
-        if (this.hrac.getPrebiehajucaCinnost() == Cinnost.CHOD_DOLU) {
-            this.hrac.zmentCinnost(Cinnost.STOJ);
+        if (this.hrac.getPrebiehajucaCinnost() == CinnostHraca.CHOD_DOLU) {
+            this.hrac.zmentCinnost(CinnostHraca.STOJ);
         }
     }
 
     /** Zmenni cinnost z chodenia hore na statie. */
     public void prestanChoditHore() {
-        if (this.hrac.getPrebiehajucaCinnost() == Cinnost.CHOD_HORE) {
-            this.hrac.zmentCinnost(Cinnost.STOJ);
+        if (this.hrac.getPrebiehajucaCinnost() == CinnostHraca.CHOD_HORE) {
+            this.hrac.zmentCinnost(CinnostHraca.STOJ);
         }
     }
 }
