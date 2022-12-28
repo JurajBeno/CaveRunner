@@ -35,10 +35,13 @@ public class Hra {
     }
         // kazdy tik musim: sa opytat ci su npc na obrazovke, a potom robit pohyb
     public void tik() {
-        //System.out.println("tik");
-        this.ovladanieHracom.pohybHraca();
-        this.ovladanieHracom.utocenie();
+        this.ovladanieHracom.skontrolujZivot();
+        this.ovladanieHracom.vykonajCinnost();
         this.ovladanieNP.vykonajNPAkcie();
+    }
+
+    public void podajDamageHracovi(int poskodenie) {
+        this.ovladanieHracom.dostanPoskodenie(poskodenie);
     }
 
     public void podajDamage(int[] polohaHraca, int poskodenie) {

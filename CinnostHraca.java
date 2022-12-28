@@ -1,5 +1,5 @@
 /**
- * Enumerator zabezpecenie presunu informacii o smere
+ * Enumerator informacii o smere
  * danej cinnosti hraca a spravnom smere otocenia animacie prisluchajucej ku danej cinnosti.
  */
 public enum CinnostHraca {
@@ -10,7 +10,8 @@ public enum CinnostHraca {
     CHOD_VLAVO(0, -1, "Vlavo", "chodenie", 8),
     UTOC_VPRAVO(0, 1, "Vpravo", "utok", 7),
     UTOC_VLAVO(0, -1, "Vlavo", "utok", 7),
-    SMRT(0, 0, "", "", 0);
+    SMRT_VPRAVO(0, 0, "Vpravo", "smrt", 11),
+    SMRT_VLAVO(0, 0, "Vlavo", "smrt", 11);
 
     private final int smerPohybuY;
     private final int smerPohybuX;
@@ -18,7 +19,8 @@ public enum CinnostHraca {
     private final String nazovCinnosti;
     private final int najvacsiIndexAnimacie;
     
-    /**@param x, y su v ktorom smere sa cinnost deje
+    /**
+     * @param x a y suradnice v ktorom smere sa cinnost deje
      * @param otocenieAimacie je smer animacie v ktorom sa deje
      */
     CinnostHraca(int y, int x, String otocenieAnimacie, String nazovCinnosti, int najvacsiIndexAnimacie) {
@@ -29,17 +31,17 @@ public enum CinnostHraca {
         this.najvacsiIndexAnimacie = najvacsiIndexAnimacie;
     }
 
-    /** Vrati smer akym sa hrac bude hybat. */
+    /** @return smer akym sa hrac bude hybat. */
     public int[] getSmer() {
         return new int[] {this.smerPohybuY, this.smerPohybuX};
     }
 
-    /** Vrati nazov smeru ako string pre ovladanie animacii. */
+    /** @return nazov smeru ako string pre ovladanie animacii. */
     public String getOtocenieAnimacie() {
         return this.otocenieAnimacie;
     }
 
-    /** Vrati nazov cinnosti ako string pre ovladanie animacii */
+    /** @return nazov cinnosti ako string pre ovladanie animacii */
     public String getNazovCinoosti() {
         return this.nazovCinnosti;
     }
