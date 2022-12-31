@@ -1,12 +1,11 @@
 
 public class Hrac {
     private int[] smerOtocenia;
-    private int[] poziciaHraca;
-
-    private boolean utok;
+    private int yPoziciaHracaNaMape;
+    private int xPoziciaHracaNaMape;
 
     private int[] smerPohybu;
-    private CinnostHraca prebiehajucaCinnost;
+    private AkciaHraca prebiehajucaAkcia;
 
     private int rycholostHraca;
     private int poskodenie;
@@ -18,10 +17,11 @@ public class Hrac {
      */
     public Hrac(int x, int y, int rycholostHraca, int zivot, int poskodenie) {
         this.smerOtocenia = new int[] {0, 0};
-        this.poziciaHraca = new int[] {y, x};
+        this.xPoziciaHracaNaMape = x;
+        this.yPoziciaHracaNaMape = y;
         this.rycholostHraca = rycholostHraca;
         this.smerPohybu = new int[] {0, 0}; 
-        this.prebiehajucaCinnost = CinnostHraca.STOJ;
+        this.prebiehajucaAkcia = AkciaHraca.STOJ;
         this.zivot = zivot;
         this.poskodenie = poskodenie;
     }
@@ -51,30 +51,30 @@ public class Hrac {
      * @return poziciu hraca na mape
      */
     public int[] getPoziciaHracaNaMape() {
-        return this.poziciaHraca;
+        return new int[] {this.yPoziciaHracaNaMape, this.xPoziciaHracaNaMape};
     }
 
     /**
      * Zmneni poziciu hraca na mape
      */
     public void zmenPoziciuHracaNaMape() {
-        this.poziciaHraca[0] += this.smerPohybu[0];
-        this.poziciaHraca[1] += this.smerPohybu[1];
+        this.yPoziciaHracaNaMape += this.smerPohybu[0];
+        this.xPoziciaHracaNaMape += this.smerPohybu[1];
     
     }
 
     /** 
-     * @return boolovsku hodnotu true ak cinnost je utok
+     * @return boolovsku hodnotu true ak akcia je utok
      */
     public boolean getUtoci() {
-        return this.prebiehajucaCinnost == CinnostHraca.UTOC_VLAVO || this.prebiehajucaCinnost == CinnostHraca.UTOC_VPRAVO;
+        return this.prebiehajucaAkcia == AkciaHraca.UTOC_VLAVO || this.prebiehajucaAkcia == AkciaHraca.UTOC_VPRAVO;
     }
 
     /**
-     * @return boolovsku hodnotu ak cinnost je pohyb
+     * @return boolovsku hodnotu ak akcia je pohyb
      */
     public boolean getHybeSa() {
-        return this.prebiehajucaCinnost.getSmer()[0] != 0 || this.prebiehajucaCinnost.getSmer()[1] != 0;
+        return this.prebiehajucaAkcia.getSmer()[0] != 0 || this.prebiehajucaAkcia.getSmer()[1] != 0;
     }
 
     /**
@@ -85,23 +85,23 @@ public class Hrac {
     }
 
     /** 
-     * @return momentalnu cinnost
+     * @return momentalnu akciu
      */
-    public CinnostHraca getPrebiehajucaCinnost() {
-        return this.prebiehajucaCinnost;
+    public AkciaHraca getPrebiehajucaAkcia() {
+        return this.prebiehajucaAkcia;
     }
 
     /**
      * @return boolovsku hodnotu ak je hrac mrtvy
      */
     public boolean jeMrtvy() {
-        return this.prebiehajucaCinnost == CinnostHraca.SMRT_VLAVO || this.prebiehajucaCinnost == CinnostHraca.SMRT_VPRAVO;
+        return this.prebiehajucaAkcia == AkciaHraca.SMRT_VLAVO || this.prebiehajucaAkcia == AkciaHraca.SMRT_VPRAVO;
     }
 
     /** 
      * @param momentalnaCinnost ktoru bude hrac vykonavat
      */
-    public void zmenCinnost(CinnostHraca momentalnaCinnost) {
+    public void zmenAkciu(AkciaHraca momentalnaCinnost) {
         if (this.jeMrtvy()) {
 
             return;
@@ -110,7 +110,7 @@ public class Hrac {
             this.smerOtocenia = momentalnaCinnost.getSmer();
         }
         this.smerPohybu = momentalnaCinnost.getSmer();
-        this.prebiehajucaCinnost = momentalnaCinnost;
+        this.prebiehajucaAkcia = momentalnaCinnost;
     }
 
     /** 

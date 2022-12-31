@@ -1,8 +1,8 @@
 /**
  * Enumerator informacii o smere
- * danej cinnosti hraca a spravnom smere otocenia animacie prisluchajucej ku danej cinnosti.
+ * danej Akcie hraca a spravnom smere otocenia animacie prisluchajucej ku danej Akcie.
  */
-public enum CinnostHraca {
+public enum AkciaHraca {
     STOJ(0, 0, "Dolu", "Stoj", 0),
     CHOD_HORE(-1, 0, "Hore", "chodenie", 8),
     CHOD_DOLU(1, 0, "Dolu", "chodenie", 8),
@@ -16,18 +16,18 @@ public enum CinnostHraca {
     private final int smerPohybuY;
     private final int smerPohybuX;
     private final String otocenieAnimacie;
-    private final String nazovCinnosti;
+    private final String nazovAkcie;
     private final int najvacsiIndexAnimacie;
     
     /**
      * @param x a y suradnice v ktorom smere sa cinnost deje
      * @param otocenieAimacie je smer animacie v ktorom sa deje
      */
-    CinnostHraca(int y, int x, String otocenieAnimacie, String nazovCinnosti, int najvacsiIndexAnimacie) {
+    AkciaHraca(int y, int x, String otocenieAnimacie, String nazovAkcie, int najvacsiIndexAnimacie) {
         this.smerPohybuY = y;
         this.smerPohybuX = x;
         this.otocenieAnimacie = otocenieAnimacie;
-        this.nazovCinnosti = nazovCinnosti;
+        this.nazovAkcie = nazovAkcie;
         this.najvacsiIndexAnimacie = najvacsiIndexAnimacie;
     }
 
@@ -41,11 +41,16 @@ public enum CinnostHraca {
         return this.otocenieAnimacie;
     }
 
-    /** @return nazov cinnosti ako string pre ovladanie animacii */
-    public String getNazovCinoosti() {
-        return this.nazovCinnosti;
+    /**
+     * @return nazov akcie ako string pre ovladanie animacii
+     */
+    public String getNazovAkcie() {
+        return this.nazovAkcie;
     }
 
+    /**
+     * @return index poslednej animacie v cykle
+     */
     public int getNajvacsiIndexAnimacie() {
         return this.najvacsiIndexAnimacie;
     }

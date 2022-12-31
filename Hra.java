@@ -6,7 +6,6 @@ public class Hra {
     private OvladanieHracom ovladanieHracom;
     private Manazer manazer;
     private Mapa mapa;
-    private TovarenNaNehratelnePostavy tovaren;
     private OvladanieNehratelnychPostav ovladanieNP;
     /**
      * NP = NehratelnaPostava (programom ovladana)
@@ -21,13 +20,11 @@ public class Hra {
         int velkostMapy = 65;
         int poskodenie = 32;
         int zivot = 256;
-        int pocetNP = 10;
+        int pocetNP = 1;
 
         this.mapa = new Mapa(x, y, "prvyLevel1", velkostMapy);
-        this.ovladanieHracom = new OvladanieHracom(x, y, this.mapa, rycholostHraca, poskodenie, zivot);
-        this.ovladanieHracom.spojHru(this);
-        new TovarenNaNehratelnePostavy(pocetNP, this.mapa); //po vytvoreni postav dropnem celu instanciu z pamate;
-        this.ovladanieNP = new OvladanieNehratelnychPostav(this.mapa);
+        this.ovladanieHracom = new OvladanieHracom(x, y, this.mapa, rycholostHraca, poskodenie, zivot, this);
+        this.ovladanieNP = new OvladanieNehratelnychPostav(this.mapa, this, pocetNP);
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this.ovladanieHracom);
         this.manazer.spravujObjekt(this);
@@ -36,8 +33,8 @@ public class Hra {
         // kazdy tik musim: sa opytat ci su npc na obrazovke, a potom robit pohyb
     public void tik() {
         this.ovladanieHracom.skontrolujZivot();
-        this.ovladanieHracom.vykonajCinnost();
-        this.ovladanieNP.vykonajNPAkcie();
+        this.ovladanieHracom.vykonajAkcie();
+        this.ovladanieNP.vykonajNPAkcie(this.ovladanieHracom.getPoziciaHracaNaMape());
     }
 
     public void podajDamageHracovi(int poskodenie) {
@@ -45,6 +42,15 @@ public class Hra {
     }
 
     public void podajDamage(int[] polohaHraca, int poskodenie) {
+        System.out.println(polohaHraca[0] + " " + polohaHraca[1]);
         this.ovladanieNP.dostanPoskodenie(poskodenie, polohaHraca);
+    }
+
+    public int[] getStredObrazovky() {
+        return this.ovladanieHracom.getPoziciaHracaNaMape();
+    }
+
+    public void posunNehratelnePostavy(int posun, int[] smer) {
+        this.ovladanieNP.posunKazduPostavu(posun, smer);
     }
 }
