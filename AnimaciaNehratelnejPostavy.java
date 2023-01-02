@@ -16,9 +16,13 @@ public class AnimaciaNehratelnejPostavy {
         this.xPoziciaNaMape = x;
         this.yPoziciaNaMape = y;
         this.akcia = AkciaNehratelnejPostavy.STOJ;
-        this.aktualnaPodoba = new Obrazok("animacieNehratelnePostavy\\stoj\\stoj.png");
+        this.aktualnaPodoba = new Obrazok("animacieNehratelnePostavy\\stoj\\stoj0.png");
         this.aktualnaPodoba.zmenPolohu(x, y);
         this.aktualnaPodoba.zobraz();
+    }
+
+    public void skry() {
+        this.aktualnaPodoba.skry();
     }
 
     public int getIndexAnimacie() {

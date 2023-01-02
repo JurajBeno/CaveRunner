@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-//import java.awt.event.MouseAdapter;
-//import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Triedu ManazerKlaves som prerobil aby sledovala stlacenie a pustenie klaves
  * Automaticky posiela spravy danym objektom:<br />
  * posunDole() - pri stlaceni klavesy DOWN<br />
  * posunHore() - pri stlaceni klavesy UP<br />
@@ -19,11 +19,11 @@ import java.util.Collections;
  * posunVpravo() - pri stlaceni klavesy RIGHT<br />
  * aktivuj() - pri stlaceni klavesy ENTER alebo SPACE<br />
  * zrus() - pri stlaceni klavesy ESC<br />
- * tik() - kazdych 0,020s sekundy<br />
+ * tik() - kazdych 0,25 sekundy<br />
  * vyberSuradnice(x, y) - pri kliknuti mysou
  */
 public class Manazer {
-    private ArrayList<Object> spravovaneObjekty;
+    private CopyOnWriteArrayList<Object> spravovaneObjekty;
     private ArrayList<Integer> vymazaneObjekty;
     private long oldTick;
     private static final long TICK_LENGTH = 20000000;
@@ -82,13 +82,13 @@ public class Manazer {
         }
     }
     
-    /*private class ManazerMysi extends MouseAdapter {
+    private class ManazerMysi extends MouseAdapter {
         public void mouseClicked(MouseEvent event) {
             if (event.getButton() == MouseEvent.BUTTON1) {
                 Manazer.this.posliSpravu("vyberSuradnice", event.getX(), event.getY());
             }
         }
-    }*/
+    }
     
     private void posliSpravu(String selektor) {
         for (Object adresat : this.spravovaneObjekty) {
@@ -152,12 +152,12 @@ public class Manazer {
      * Vytvori novy manazer, ktory nespravuje zatial ziadne objekty.
      */
     public Manazer() {
-        this.spravovaneObjekty = new ArrayList<Object>();
+        this.spravovaneObjekty = new CopyOnWriteArrayList<Object>();
         this.vymazaneObjekty = new ArrayList<Integer>();
-        Platno.dajPlatno().addKeyListener(new ManazerKliknutia());
         Platno.dajPlatno().addKeyListener(new ManazerKlaves());
+        Platno.dajPlatno().addKeyListener(new ManazerKliknutia());
         Platno.dajPlatno().addTimerListener(new ManazerCasovaca());
-      //  Platno.dajPlatno().addMouseListener(new ManazerMysi());
+        Platno.dajPlatno().addMouseListener(new ManazerMysi());
     }
     
     /**

@@ -11,11 +11,11 @@ import java.awt.Rectangle;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 /**
  * Canvas is a class to allow for simple graphical drawing on a canvas.
@@ -56,7 +56,7 @@ public class Platno {
     private Image canvasImage;
     private Timer timer;
     private List<Object> objekty;
-    private HashMap<Object, IDraw> tvary;
+    private HashMap<Object, IPopisTvaru> tvary;
     
     /**
      * Create a Canvas.
@@ -64,7 +64,6 @@ public class Platno {
      * @param width  the desired width for the canvas
      * @param height  the desired height for the canvas
      * @param bgClour  the desired background colour of the canvas
-     * Tu som pridal defaultCloseOperation
      */
     private Platno(String titulok, int sirka, int vyska, Color pozadie) {
         this.frame = new JFrame();
@@ -78,7 +77,7 @@ public class Platno {
         this.pozadie = pozadie;
         this.frame.pack();
         this.objekty = new ArrayList<Object>();
-        this.tvary = new HashMap<Object, IDraw>();
+        this.tvary = new HashMap<Object, IPopisTvaru>();
     }
 
     /**
@@ -124,9 +123,6 @@ public class Platno {
      * @param  image            the image object to be drawn on the canvas
      * @param  transform        the transformation applied to the image
      */
-     // Note: this is a slightly backwards way of maintaining the shape
-     // objects. It is carefully designed to keep the visible shape interfaces
-     // in this project clean and simple for educational purposes.
     public void draw(Object objekt, BufferedImage image, AffineTransform transform) {
         this.objekty.remove(objekt);   // just in case it was already there
         this.objekty.add(objekt);      // add at the end
@@ -228,24 +224,21 @@ public class Platno {
         }
     }
     
-    /***********************************************************************
-     * Inner interface IDraw - defines functions that need to be supported by
-     * shapes descriptors
-     */
-    private interface IDraw {
-        void draw(Graphics2D graphic);
-    }
-    
     /************************************************************************
      * Inner class CanvasPane - the actual canvas component contained in the
      * Canvas frame. This is essentially a JPanel with added capability to
      * refresh the image drawn on it.
      */
-    private class PopisTvaru implements IDraw {
+    
+    private interface IPopisTvaru {
+        void draw(Graphics2D graphic);
+    }
+    
+    private class PopisTvaru implements IPopisTvaru {
         private Shape tvar;
         private String farba;
 
-        PopisTvaru(Shape tvar, String farba) {
+        public PopisTvaru(Shape tvar, String farba) {
             this.tvar = tvar;
             this.farba = farba;
         }
@@ -256,17 +249,17 @@ public class Platno {
         }
     }
     
-    private class PopisObrazku implements IDraw {
+    private class PopisObrazku implements IPopisTvaru {
         private BufferedImage obrazok;
         private AffineTransform transformacia;
         
-        PopisObrazku(BufferedImage obrazok, AffineTransform transformacia) {
+        public PopisObrazku(BufferedImage obrazok, AffineTransform transformacia) {
             this.obrazok = obrazok;
             this.transformacia = transformacia;
         }
         
-        public void draw(Graphics2D graphics) {
-            Platno.this.graphic.drawImage(this.obrazok, this.transformacia, null); 
+        public void draw(Graphics2D graphic) {
+            graphic.drawImage(this.obrazok, this.transformacia, null); 
         }
     }
 }

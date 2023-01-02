@@ -8,30 +8,46 @@ public class NehratelnaPostava {
     private int yPoziciaNaMape;
     private int zivot;
     private int poskodenie;
-    private Mapa mapa;
     private boolean utoci;
     private AnimaciaNehratelnejPostavy animacia;
     private AkciaNehratelnejPostavy akcia;
+    private boolean mrtvy;
     /** 
      * V konstruktore vyrata aj poziciu v pixloch aby sme ich obrazky mohli posuvat
      */
     public NehratelnaPostava(int xPoziciaNaMape, int yPoziciaNaMape, int zivot, int poskodenie, Mapa mapa) {
-        this.xPoziciaNaMape = 131;
-        this.yPoziciaNaMape = 132;
+        this.xPoziciaNaMape = xPoziciaNaMape;
+        this.yPoziciaNaMape = yPoziciaNaMape;
         this.zivot = zivot;
         this.poskodenie = poskodenie;
-        this.mapa = mapa;
         this.utoci = false;
-        System.out.println(131 * 8 + " je x na mape: " + 131);
-        System.out.println(132 * 8 + " je y na mape: " + 131);
-        this.animacia = new AnimaciaNehratelnejPostavy(132 * 8, 132 * 8);
+        System.out.println(this.transformujSuradnice(this.xPoziciaNaMape, 426, 131));
+
+        this.animacia = new AnimaciaNehratelnejPostavy(this.transformujSuradnice(this.xPoziciaNaMape, 426, 131), this.transformujSuradnice(this.yPoziciaNaMape, 240, 132));
         this.akcia = null;
-        //TODO pohyb bude prilepeny na pozadie, cize vzdy ked sa pohne pozadie pohnu sa aj postavy
-        //TODO this.animacia = new AnimaciaNehratelnejPostavy();
+        this.mrtvy = false;
+    }
+
+    private int transformujSuradnice(int suradnica, int vzdialenostStredu, int poziciaHraca) {
+        if (suradnica > poziciaHraca) {
+            return (suradnica - poziciaHraca) * 8 + vzdialenostStredu;
+        } else if (suradnica < poziciaHraca) {
+            return -((poziciaHraca - suradnica) * 8 - vzdialenostStredu);
+        }
+        return vzdialenostStredu;
+    }
+
+    public void setAkcia(AkciaNehratelnejPostavy novaAkcia) {
+        this.akcia = novaAkcia;
+    }
+
+    public void zmenaAnimacie() {
+        this.animacia.animuj(this.akcia);
     }
 
     public void utoc() {
         this.utoci = true;
+        this.akcia = AkciaNehratelnejPostavy.UTOC_VLAVO;
         this.animacia.animuj(this.akcia);
         if (this.animacia.getIndexAnimacie() > this.akcia.getNajvacsiIndexAnimacie() && this.utoci) {
             this.animacia.animuj(this.akcia);
@@ -55,6 +71,10 @@ public class NehratelnaPostava {
         this.animacia.posunPodobu(posun, smer);
     }
 
+    public boolean jeMrtvy() {
+        return this.mrtvy;
+    }
+
     public boolean jeUtociaci() {
         return this.utoci;
     }
@@ -74,6 +94,7 @@ public class NehratelnaPostava {
         System.out.println(this.zivot);
         if (this.zivot < 1) {
             this.umri();
+            this.mrtvy = true;
         }
     }
 
@@ -83,6 +104,6 @@ public class NehratelnaPostava {
     }
 
     private void umri() {
-        //todo 
+        this.animacia.skry();
     }
 }

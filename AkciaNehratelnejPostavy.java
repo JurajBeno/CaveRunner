@@ -6,12 +6,10 @@
  * @version (version number or date here)
  */
 public enum AkciaNehratelnejPostavy {
-    STOJ("Dolu", "Stoj", 0),
+    STOJ("", "Stoj", 0),
     UTOC_VPRAVO("Vpravo", "utok", 5),
-    UTOC_VLAVO("Vlavo", "utok", 5),
-    SMRT_VPRAVO( "Vpravo", "smrt", 5),
-    SMRT_VLAVO("Vlavo", "smrt", 5);
-
+    UTOC_VLAVO("Vlavo", "utok", 5);
+    
     private final String otocenieAnimacie;
     private final String nazovAkcie;
     private final int najvacsiIndexAnimacie;

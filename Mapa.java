@@ -16,13 +16,18 @@ public class Mapa {
      */
     public Mapa(int x, int y, String nazovLevelu, int velkostMapy) {
         this.sietPreMapu = new SietPreMapu(nazovLevelu);
+
         this.x = x;
         this.y = y;
         this.mapaAkoObr = new Obrazok(String.format("TiledResources\\%s.png", nazovLevelu));
         this.mapaAkoObr.zmenPolohu(x, y);
         this.mapaAkoObr.zobraz();
-        this.velkostMapy = velkostMapy;
+        this.velkostMapy = velkostMapy * 4;
         System.out.println("[INFO]: mapa nacitana");
+    }
+
+    public void vynulujMapu(int x, int y) {
+        this.mapaAkoObr.zmenPolohu(x, y);
     }
 
     /**
@@ -47,7 +52,7 @@ public class Mapa {
         }
     }
 
-    /** Vrati velkost mapy. */
+    /** Vrati velkost mapy */
     public int getVelkostMapy() {
         return this.velkostMapy;
     }

@@ -23,6 +23,10 @@ public class OvladanieHracom {
         this.hra = hra;
     }
 
+    public boolean jeHracMrtvy() {
+        return this.hrac.jeMrtvy();
+    }
+
     /** 
      * @return pozicia hraca na mape
      */
@@ -82,7 +86,7 @@ public class OvladanieHracom {
     private void zautoc() {
         this.animacia.animuj(this.hrac.getPrebiehajucaAkcia());
         if (this.animacia.getIndexAnimacie() > this.hrac.getPrebiehajucaAkcia().getNajvacsiIndexAnimacie() && this.hrac.getUtoci()) {
-            this.hra.podajDamage(this.hrac.getPoziciaHracaNaMape(), this.hrac.getPoskodenie());
+            this.hra.podajPoskodenieNehratelnymPostavam(this.hrac.getPoziciaHracaNaMape(), this.hrac.getPoskodenie());
             this.animacia.animuj(this.hrac.getPrebiehajucaAkcia());
             this.hrac.zmenAkciu(AkciaHraca.STOJ);
         }
