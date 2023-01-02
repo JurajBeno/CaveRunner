@@ -15,7 +15,7 @@ public class Hra {
      */
     
     public Hra() {
-        //TODO dokoncit aby bol nepriatel otoceny spravnym smerom ked utoci na hraca
+        //TODO dokoncit aby bol nepriatel otoceny spravnym smerom ked utoci na hraca, nechat hru nech dokonci animaciu umierania
         //nastavenia:
         int y = 240;
         int x = 426;

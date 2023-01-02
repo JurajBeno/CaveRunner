@@ -23,6 +23,9 @@ public class AnimaciaHraca {
         return this.indexAnimacie;
     }
 
+    /** 
+     * ak sa akcia zmenila ale presla vsetkymi obrazkami tak sa zmeni inak sa iba posunie obrazok
+     */
     public void animuj(AkciaHraca novaAkcia) {
         if (this.akcia != novaAkcia || this.indexAnimacie > this.akcia.getNajvacsiIndexAnimacie()) {
             this.indexAnimacie = 0;

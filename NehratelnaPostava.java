@@ -21,7 +21,6 @@ public class NehratelnaPostava {
         this.zivot = zivot;
         this.poskodenie = poskodenie;
         this.utoci = false;
-        System.out.println(this.transformujSuradnice(this.xPoziciaNaMape, 426, 131));
 
         this.animacia = new AnimaciaNehratelnejPostavy(this.transformujSuradnice(this.xPoziciaNaMape, 426, 131), this.transformujSuradnice(this.yPoziciaNaMape, 240, 132));
         this.akcia = null;
@@ -37,14 +36,24 @@ public class NehratelnaPostava {
         return vzdialenostStredu;
     }
 
+    /**
+     * nastavi @param novaAkcia ako akciu danej nehratelnej postavy
+     */
     public void setAkcia(AkciaNehratelnejPostavy novaAkcia) {
         this.akcia = novaAkcia;
     }
 
+    /**
+     * posunie momentalnu aknimaciu podla daniej akcie
+     */
     public void zmenaAnimacie() {
         this.animacia.animuj(this.akcia);
     }
 
+    /**
+     * zmeni akciu a spusti animaciu,
+     * ak je ale uz posledna cast animacie utoku posle poskodenie
+     */
     public void utoc() {
         this.utoci = true;
         this.akcia = AkciaNehratelnejPostavy.UTOC_VLAVO;
@@ -56,10 +65,16 @@ public class NehratelnaPostava {
         }
     }
 
+    /**
+     * @return vrati index animacie
+     */
     public int getIndexAnimacie() {
         return this.animacia.getIndexAnimacie();
     }
 
+    /**
+     * @return momentalnu akciu danej nehratelnej postavy
+     */
     public AkciaNehratelnejPostavy getAkcia() {
         return this.akcia;
     }
@@ -71,10 +86,16 @@ public class NehratelnaPostava {
         this.animacia.posunPodobu(posun, smer);
     }
 
+    /**
+     * @return boolovsku hodnotu ci je nehratelna postava ziva alebo nie
+     */
     public boolean jeMrtvy() {
         return this.mrtvy;
     }
 
+    /**
+     * @return boolovsku hodnotu ci je nehratelna postava c utoku alebo nie
+     */
     public boolean jeUtociaci() {
         return this.utoci;
     }
@@ -98,7 +119,9 @@ public class NehratelnaPostava {
         }
     }
 
-    /** @return polohu postavy, hodnoty ulozene v poli {y, x} */
+    /**
+     * @return polohu postavy, hodnoty ulozene v poli {y, x}
+     */
     public int[] getPoloha() {
         return new int[]{this.yPoziciaNaMape, this.xPoziciaNaMape};
     }

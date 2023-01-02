@@ -29,14 +29,18 @@ public class OvladanieNehratelnychPostav {
         }
     }
 
+    /** @return pocet zijucich nehratelnych postav */
     public int getPocetNP() {
         return this.zoznamNP.size();
     }
 
-    private boolean jePriestorVolny(int yPoziciaNaMape, int xPoziciaNaMape) {
-        return this.mapa.getPrvokMapy(yPoziciaNaMape, xPoziciaNaMape) == -1;
+    private boolean jePriestorVolny(int y, int x) {
+        return this.mapa.getPrvokMapy(y, x) == -1;
     }
 
+    /** posunie kazdu animaciu alebo obrazok,
+     * kazdej nehratelnej postavy danym @param smerom o @param posun
+     */
     public void posunKazduPostavu(int posun, int[] smer) {
         for (NehratelnaPostava np: this.zoznamNP) {
             np.posunPostavu(posun, smer);

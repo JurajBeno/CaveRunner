@@ -16,16 +16,6 @@ public class SietPreMapu {
         return this.mapa.getPrvok(r, s);
     }
 
-    /** pre debugovanie, vo vyslednom odovzdani bude vymazane 
-    public void vypisMapu() {
-        for (int[] riadok: this.mapa.getPocetRiadkov()) {
-            for (int i: riadok) {
-                System.out.print(i);
-            }
-            System.out.println();
-        }
-    }*/
-
     /* mapa musi byt 4-krat zvacsena pre plynulejsi pohyb,
      * skusal som to riesit rozdelenim policka na rovnake casti pouzitim modulo
      * ale potom mi postavicka liezla do stien

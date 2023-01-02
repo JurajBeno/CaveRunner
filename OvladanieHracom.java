@@ -16,7 +16,7 @@ public class OvladanieHracom {
      */
     public OvladanieHracom(int x, int y, Mapa mapa, int rycholostHraca, int poskodenie, int zivot, Hra hra) {
         this.mapa = mapa;
-                            // stred mapy
+
         this.hrac = new Hrac(131, 132, rycholostHraca, zivot, poskodenie);
         this.animacia = new AnimaciaHraca(x, y);
         
@@ -43,7 +43,11 @@ public class OvladanieHracom {
      */
     public void skontrolujZivot() {
         if (this.hrac.getZivot() < 1) {
-            this.umri();
+            if (this.hrac.getSmerOtocenia()[0] == 1 || this.hrac.getSmerOtocenia()[1] == 1) {
+                this.hrac.zmenAkciu(AkciaHraca.SMRT_VPRAVO);
+            } else {
+                this.hrac.zmenAkciu(AkciaHraca.SMRT_VLAVO);
+            }
         }
     }
 
@@ -57,14 +61,6 @@ public class OvladanieHracom {
             this.pohniSa();
         } else if (this.hrac.jeMrtvy()) {
             this.umieraj();
-        }
-    }
-
-    private void umri() {
-        if (this.hrac.getSmerOtocenia()[0] == 1 || this.hrac.getSmerOtocenia()[1] == 1) {
-            this.hrac.zmenAkciu(AkciaHraca.SMRT_VPRAVO);
-        } else {
-            this.hrac.zmenAkciu(AkciaHraca.SMRT_VLAVO);
         }
     }
 

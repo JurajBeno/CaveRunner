@@ -21,18 +21,30 @@ public class AnimaciaNehratelnejPostavy {
         this.aktualnaPodoba.zobraz();
     }
 
+    /**
+     * skryje aktualny obrazok nehratelnej postavy
+     */
     public void skry() {
         this.aktualnaPodoba.skry();
     }
 
+    /**
+     * @return momentalny index animacie
+     */
     public int getIndexAnimacie() {
         return this.indexAnimacie;
     }
 
+    /** 
+     * zmeni poziciu obrazka na obrazovke
+     */
     public void posunPodobu(int posun, int[] smer) {
         this.aktualnaPodoba.zmenPolohu(this.xPoziciaNaMape += posun * smer[1], this.yPoziciaNaMape += posun * smer[0]);
     }
 
+    /** 
+     * ak sa akcia zmenila ale presla vsetkymi obrazkami tak sa zmeni inak sa iba posunie obrazok
+     */
     public void animuj(AkciaNehratelnejPostavy novaAkcia) {
         if (this.akcia != novaAkcia || this.indexAnimacie > this.akcia.getNajvacsiIndexAnimacie()) {
             this.indexAnimacie = 0;

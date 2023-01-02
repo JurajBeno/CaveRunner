@@ -26,10 +26,6 @@ public class Mapa {
         System.out.println("[INFO]: mapa nacitana");
     }
 
-    public void vynulujMapu(int x, int y) {
-        this.mapaAkoObr.zmenPolohu(x, y);
-    }
-
     /**
      * Vrati hodnotu z pola mapy na danych suradniciach.
      */
