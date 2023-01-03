@@ -23,6 +23,9 @@ public class OvladanieHracom {
         this.hra = hra;
     }
 
+    /**
+     * @return boolovsku hodnotu ci je hrac zivy alebo nie
+     */
     public boolean jeHracMrtvy() {
         return this.hrac.jeMrtvy();
     }

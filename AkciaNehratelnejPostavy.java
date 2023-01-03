@@ -1,9 +1,6 @@
 
 /**
- * Enumeration class AkciaNehratelnejPostavy - write a description of the enum class here
- * 
- * @author (your name here)
- * @version (version number or date here)
+ * Enumerator uchovava inforamcie o animaciach danych akcii nehratelnej postavy
  */
 public enum AkciaNehratelnejPostavy {
     STOJ("", "Stoj", 0),

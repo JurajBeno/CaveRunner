@@ -1,9 +1,6 @@
 
 /**
- * Write a description of class AnimaciaNehratelnejPostavy here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Trieda zabezpecuje zobrazenie a zmeny animacii nehratelnej postavy
  */
 public class AnimaciaNehratelnejPostavy {
     private int xPoziciaNaMape;
@@ -12,6 +9,12 @@ public class AnimaciaNehratelnejPostavy {
     private int indexAnimacie;
     private AkciaNehratelnejPostavy akcia;
     
+    /**
+     * 
+     * @param x poloha postavy na horizontalnej osi obrazovky 
+     * @param y poloha postavy na vertikalnej osi obrazovky
+     * (hodnoty parametrov mozu byt zaparne ak nehratelnu postavu na obrazovke este nevidno)
+     */
     public AnimaciaNehratelnejPostavy(int x, int y) {
         this.xPoziciaNaMape = x;
         this.yPoziciaNaMape = y;
@@ -36,14 +39,14 @@ public class AnimaciaNehratelnejPostavy {
     }
 
     /** 
-     * zmeni poziciu obrazka na obrazovke
+     * zmeni poziciu animacie (obrazka) na obrazovke
      */
     public void posunPodobu(int posun, int[] smer) {
         this.aktualnaPodoba.zmenPolohu(this.xPoziciaNaMape += posun * smer[1], this.yPoziciaNaMape += posun * smer[0]);
     }
 
     /** 
-     * ak sa akcia zmenila ale presla vsetkymi obrazkami tak sa zmeni inak sa iba posunie obrazok
+     * ak sa akcia zmenila ale presla vsetkymi obrazkami tak sa zmeni inak sa iba posunie obrazok animacie
      */
     public void animuj(AkciaNehratelnejPostavy novaAkcia) {
         if (this.akcia != novaAkcia || this.indexAnimacie > this.akcia.getNajvacsiIndexAnimacie()) {

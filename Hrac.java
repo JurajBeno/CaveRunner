@@ -1,4 +1,7 @@
 
+/** Trieda uchovava informacie o celkovom stave hraca
+ * a na zaklade toho vyhodnocuje veci ako ci sa hybe a ci je zivy alebo mrtvy
+ */
 public class Hrac {
     private int[] smerOtocenia;
     private int yPoziciaHracaNaMape;
@@ -100,7 +103,7 @@ public class Hrac {
     }
 
     /** 
-     * @param momentalnaCinnost ktoru bude hrac vykonavat
+     * zmeni @param momentalnaCinnost ktoru bude hrac vykonavat
      */
     public void zmenAkciu(AkciaHraca momentalnaCinnost) {
         if (this.jeMrtvy()) {
@@ -127,5 +130,4 @@ public class Hrac {
     public int getZivot() {
         return this.zivot;
     }
-
 }

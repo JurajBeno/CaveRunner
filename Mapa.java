@@ -27,7 +27,7 @@ public class Mapa {
     }
 
     /**
-     * Vrati hodnotu z pola mapy na danych suradniciach.
+     * Vrati hodnotu z pola mapy na danych suradniciach
      */
     public int getPrvokMapy(int r, int s) {
         return this.sietPreMapu.getHodnotu(r, s);

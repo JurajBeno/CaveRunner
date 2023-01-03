@@ -13,7 +13,7 @@ public class NehratelnaPostava {
     private AkciaNehratelnejPostavy akcia;
     private boolean mrtvy;
     /** 
-     * V konstruktore vyrata aj poziciu v pixloch aby sme ich obrazky mohli posuvat
+     * V konstruktore vyrata aj poziciu v pixeloch pre triedu AnimacieNehratelnejPostavy
      */
     public NehratelnaPostava(int xPoziciaNaMape, int yPoziciaNaMape, int zivot, int poskodenie, Mapa mapa) {
         this.xPoziciaNaMape = xPoziciaNaMape;
@@ -56,7 +56,6 @@ public class NehratelnaPostava {
      */
     public void utoc() {
         this.utoci = true;
-        this.akcia = AkciaNehratelnejPostavy.UTOC_VLAVO;
         this.animacia.animuj(this.akcia);
         if (this.animacia.getIndexAnimacie() > this.akcia.getNajvacsiIndexAnimacie() && this.utoci) {
             this.animacia.animuj(this.akcia);
@@ -114,7 +113,7 @@ public class NehratelnaPostava {
         this.zivot -= poskodenie;
         System.out.println(this.zivot);
         if (this.zivot < 1) {
-            this.umri();
+            this.animacia.skry();
             this.mrtvy = true;
         }
     }
@@ -124,9 +123,5 @@ public class NehratelnaPostava {
      */
     public int[] getPoloha() {
         return new int[]{this.yPoziciaNaMape, this.xPoziciaNaMape};
-    }
-
-    private void umri() {
-        this.animacia.skry();
     }
 }

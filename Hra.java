@@ -11,9 +11,12 @@ public class Hra {
     private Obrazok startObrazok;
     private Obrazok koniecHryObrazok;
     /**
-     * NP = NehratelnaPostava (programom ovladana)
+     * Najprv mam nastavenie hry:
+     * rozmery obrazovky, a nastavenia hraca
+     * nasledne vytovori vsetky triedy potrebne nabeh hry a pripravi na spustenie hry hracom
+     * 
+     * NP = NehratelnaPostava (programom ovladana)    
      */
-    
     public Hra() {
         //TODO dokoncit aby bol nepriatel otoceny spravnym smerom ked utoci na hraca, nechat hru nech dokonci animaciu umierania
         //nastavenia:
@@ -43,7 +46,10 @@ public class Hra {
         System.out.println("[INFO]: hra nacitana");
     }
 
-        // kazdy tik musim: sa opytat ci su npc na obrazovke, a potom robit pohyb
+    /** 
+     * Tu prebieha spustena hra kde kazdy tik vokoname akcie hraca, NP
+     * a skonrolujeme ci neboli splnene podmienky konca hry
+     */
     public void tik() {
         if (this.hraBezi) {
         this.ukonciHru();
@@ -53,6 +59,7 @@ public class Hra {
        }
     }
 
+    /** Po zavolani sa spusti hra */
     public void aktivuj() {
         if (!this.hraBezi) {
             this.hraBezi = true;
@@ -61,15 +68,18 @@ public class Hra {
         }
     }
 
+    /** @param poskodenie ktore dala NP hracovi je mu poslane ak je v dosahu */
     public void podajPoskodenieHracovi(int poskodenie) {
         this.ovladanieHracom.dostanPoskodenie(poskodenie);
     }
 
+    /** @param poskodenie od hraca NP ktore su v dosahu @param polohaHraca */
     public void podajPoskodenieNehratelnymPostavam(int[] polohaHraca, int poskodenie) {
         System.out.println(polohaHraca[0] + " " + polohaHraca[1]);
         this.ovladanieNP.dostanPoskodenie(poskodenie, polohaHraca);
     }
 
+    /** posunie postavy @param smerom o @param posun napriklad ked sa pohne hrac a snim aj obrazovka */
     public void posunNehratelnePostavy(int posun, int[] smer) {
         this.ovladanieNP.posunKazduPostavu(posun, smer);
     }

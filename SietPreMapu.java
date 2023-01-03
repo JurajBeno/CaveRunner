@@ -2,24 +2,31 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Trieda ktora precita subor s CSV formatom mapy
+ * a nasledne ho 4-krat zvacsi pre vacsiu plynulost pohybu v hre
+ * makoniec ho ulozi do Obalovej triedy PoleMapyObal
+ */
 public class SietPreMapu {
     private String nazovMapy;
-    private PoleSieteObal mapa;
+    private PoleMapyObal mapa;
 
     public SietPreMapu(String nazovMapy) {
         this.nazovMapy = nazovMapy;
         int[][] sietZCSV = this.ziskajMapu();
-        this.mapa = new PoleSieteObal(this.zvacMapu(sietZCSV));
+        this.mapa = new PoleMapyObal(this.zvacMapu(sietZCSV));
     }
 
+    /** vrati hodnotu daneho prvku z pola mapy */
     public int getHodnotu(int r, int s) {
         return this.mapa.getPrvok(r, s);
     }
 
-    /* mapa musi byt 4-krat zvacsena pre plynulejsi pohyb,
+    /* 
+     * mapa musi byt 4-krat zvacsena pre plynulejsi pohyb,
      * skusal som to riesit rozdelenim policka na rovnake casti pouzitim modulo
      * ale potom mi postavicka liezla do stien
-      */
+     */
     private int[][] zvacMapu(int[][] mapaNaZvacsenie) {
         int[][] vysledok = new int[65 * 4][65 * 4];
         int poradieRiadkuMapy = 0;
@@ -40,9 +47,11 @@ public class SietPreMapu {
         return vysledok;
     }
     
-    /* finally-> try, catch vygenerovane cez VS code
+    /* 
+     * finally-> try, catch vygenerovane cez VS code
      * dost mi tu pomohol tento navod
      * https://www.baeldung.com/java-buffered-reader
+     * 
      */
     private int[][] ziskajMapu() {
         String cesta = String.format("TiledResources\\%s_walls.csv", this.nazovMapy);

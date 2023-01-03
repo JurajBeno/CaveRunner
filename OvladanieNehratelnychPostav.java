@@ -1,11 +1,19 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Trieda zabezpecuje komunikaciu a ulozenie nehratelnych postav so zvyskom programu.
+ */
 public class OvladanieNehratelnychPostav {
     private ArrayList<NehratelnaPostava> zoznamNP;
     private Mapa mapa;
     private Hra hra;
 
+    /** 
+     * @param mapa hry
+     * @param hra
+     * @param pocet nehratelnych postav (aby sme sa vyhli sekaniu odporucam najviac 4)
+     */
     public OvladanieNehratelnychPostav(Mapa mapa, Hra hra, int pocetNP) {
         this.zoznamNP = new ArrayList<NehratelnaPostava>();
         this.mapa = mapa;
@@ -61,6 +69,11 @@ public class OvladanieNehratelnychPostav {
                 this.hra.podajPoskodenieHracovi(np.getPoskodenie());
                 np.utoc();
             } else if (Math.abs(np.getPoloha()[0] - poloha[0]) < 3 && Math.abs(np.getPoloha()[1] - poloha[1]) < 3) {
+                if (np.getPoloha()[1] - poloha[1] < 0) {
+                    np.setAkcia(AkciaNehratelnejPostavy.UTOC_VPRAVO);
+                } else {
+                    np.setAkcia(AkciaNehratelnejPostavy.UTOC_VLAVO);
+                }
                 np.utoc();
             } else if (np.jeUtociaci()) {
                 np.setAkcia(AkciaNehratelnejPostavy.STOJ);
@@ -69,6 +82,9 @@ public class OvladanieNehratelnychPostav {
         }
     }
 
+    /** 
+     * Nehratelnej postave ktora je blizko @param polohyHraca udeli @param poskodenie
+     */
     public void dostanPoskodenie(int poskodenie, int[] polohaHraca) {
         for (NehratelnaPostava np: this.zoznamNP) {
             if (Math.abs(np.getPoloha()[0] - polohaHraca[0]) < 3 && Math.abs(np.getPoloha()[1] - polohaHraca[1]) < 3) {

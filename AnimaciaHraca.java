@@ -1,5 +1,7 @@
 
-/** Trieda zabezpecuje animovanie akcii */
+/**
+ * Trieda zabezpecuje animovanie akcii hraca
+ */
 public class AnimaciaHraca {
     private Obrazok aktualnaPodoba;
     private int indexAnimacie;
