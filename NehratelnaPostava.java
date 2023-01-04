@@ -111,7 +111,6 @@ public class NehratelnaPostava {
      */
     public void uberZivot(int poskodenie) {
         this.zivot -= poskodenie;
-        System.out.println(this.zivot);
         if (this.zivot < 1) {
             this.animacia.skry();
             this.mrtvy = true;

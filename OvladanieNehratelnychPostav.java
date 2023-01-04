@@ -20,20 +20,16 @@ public class OvladanieNehratelnychPostav {
         this.hra = hra;
 
         Random rand = new Random();
-        System.out.println(this.mapa.getVelkostMapy());
         
         int yPoziciaNaMape = rand.nextInt(this.mapa.getVelkostMapy() - 80) + 40;
         int xPoziciaNaMape = rand.nextInt(this.mapa.getVelkostMapy() - 80) + 40;
-        while (pocetNP > 0){
-            if (jePriestorVolny(yPoziciaNaMape, xPoziciaNaMape)) {
+        while (pocetNP > 0) {
+            if (this.jePriestorVolny(yPoziciaNaMape, xPoziciaNaMape)) {
                 this.zoznamNP.add(new NehratelnaPostava(xPoziciaNaMape, yPoziciaNaMape, 100, 5, mapa));
                 pocetNP--;
             }
             yPoziciaNaMape = rand.nextInt(this.mapa.getVelkostMapy() - 80) + 40;
             xPoziciaNaMape = rand.nextInt(this.mapa.getVelkostMapy() - 80) + 40;
-        }
-        for (NehratelnaPostava np: this.zoznamNP) {
-            System.out.println(np.getPoloha()[0] + " " + np.getPoloha()[1]);
         }
     }
 
@@ -65,7 +61,7 @@ public class OvladanieNehratelnychPostav {
                 this.zoznamNP.remove(np);
             }
             if (np.jeUtociaci() && np.getIndexAnimacie() == np.getAkcia().getNajvacsiIndexAnimacie() && 
-            Math.abs(np.getPoloha()[0] - poloha[0]) < 3 && Math.abs(np.getPoloha()[1] - poloha[1]) < 3) {
+                Math.abs(np.getPoloha()[0] - poloha[0]) < 3 && Math.abs(np.getPoloha()[1] - poloha[1]) < 3) {
                 this.hra.podajPoskodenieHracovi(np.getPoskodenie());
                 np.utoc();
             } else if (Math.abs(np.getPoloha()[0] - poloha[0]) < 3 && Math.abs(np.getPoloha()[1] - poloha[1]) < 3) {

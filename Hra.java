@@ -42,8 +42,6 @@ public class Hra {
         this.startObrazok.zobraz();
 
         this.manazer.spravujObjekt(this);
-
-        System.out.println("[INFO]: hra nacitana");
     }
 
     /** 
@@ -52,11 +50,11 @@ public class Hra {
      */
     public void tik() {
         if (this.hraBezi) {
-        this.ukonciHru();
-        this.ovladanieHracom.skontrolujZivot();
-        this.ovladanieHracom.vykonajAkcie();
-        this.ovladanieNP.vykonajNPAkcie(this.ovladanieHracom.getPoziciaHracaNaMape());
-       }
+            this.ukonciHru();
+            this.ovladanieHracom.skontrolujZivot();
+            this.ovladanieHracom.vykonajAkcie();
+            this.ovladanieNP.vykonajNPAkcie(this.ovladanieHracom.getPoziciaHracaNaMape());
+        }
     }
 
     /** Po zavolani sa spusti hra */
@@ -75,7 +73,6 @@ public class Hra {
 
     /** @param poskodenie od hraca NP ktore su v dosahu @param polohaHraca */
     public void podajPoskodenieNehratelnymPostavam(int[] polohaHraca, int poskodenie) {
-        System.out.println(polohaHraca[0] + " " + polohaHraca[1]);
         this.ovladanieNP.dostanPoskodenie(poskodenie, polohaHraca);
     }
 

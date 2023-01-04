@@ -238,7 +238,7 @@ public class Platno {
         private Shape tvar;
         private String farba;
 
-        public PopisTvaru(Shape tvar, String farba) {
+        PopisTvaru(Shape tvar, String farba) {
             this.tvar = tvar;
             this.farba = farba;
         }
@@ -253,7 +253,7 @@ public class Platno {
         private BufferedImage obrazok;
         private AffineTransform transformacia;
         
-        public PopisObrazku(BufferedImage obrazok, AffineTransform transformacia) {
+        PopisObrazku(BufferedImage obrazok, AffineTransform transformacia) {
             this.obrazok = obrazok;
             this.transformacia = transformacia;
         }

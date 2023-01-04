@@ -34,8 +34,8 @@ public class AnimaciaHraca {
             this.akcia = novaAkcia;
         }
         this.aktualnaPodoba.zmenObrazok(String.format("animacie\\%s%s\\%s%s%d.png",
-        this.akcia.getNazovAkcie(), this.akcia.getOtocenieAnimacie(),
-        this.akcia.getNazovAkcie(), this.akcia.getOtocenieAnimacie(), this.indexAnimacie));
+            this.akcia.getNazovAkcie(), this.akcia.getOtocenieAnimacie(),
+            this.akcia.getNazovAkcie(), this.akcia.getOtocenieAnimacie(), this.indexAnimacie));
         this.indexAnimacie++;
     }
 }

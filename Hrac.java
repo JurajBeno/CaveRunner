@@ -34,7 +34,6 @@ public class Hrac {
      */
     public void dostanPoskodenie(int poskodenie) {
         this.zivot -= poskodenie;
-        System.out.println(this.zivot);
     }
 
     /**

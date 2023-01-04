@@ -23,6 +23,7 @@ public enum AkciaHraca {
      * @param x a y suradnice v ktorom smere sa cinnost deje
      * @param otocenieAimacie je smer animacie v ktorom sa deje
      */
+
     AkciaHraca(int y, int x, String otocenieAnimacie, String nazovAkcie, int najvacsiIndexAnimacie) {
         this.smerPohybuY = y;
         this.smerPohybuX = x;

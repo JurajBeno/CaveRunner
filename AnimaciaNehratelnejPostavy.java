@@ -42,7 +42,9 @@ public class AnimaciaNehratelnejPostavy {
      * zmeni poziciu animacie (obrazka) na obrazovke
      */
     public void posunPodobu(int posun, int[] smer) {
-        this.aktualnaPodoba.zmenPolohu(this.xPoziciaNaMape += posun * smer[1], this.yPoziciaNaMape += posun * smer[0]);
+        this.yPoziciaNaMape += posun * smer[0];
+        this.xPoziciaNaMape += posun * smer[1];
+        this.aktualnaPodoba.zmenPolohu(this.xPoziciaNaMape, this.yPoziciaNaMape);
     }
 
     /** 
@@ -54,8 +56,8 @@ public class AnimaciaNehratelnejPostavy {
             this.akcia = novaAkcia;
         }
         this.aktualnaPodoba.zmenObrazok(String.format("animacieNehratelnePostavy\\%s%s\\%s%s%d.png",
-        this.akcia.getNazovAkcie(), this.akcia.getOtocenieAnimacie(),
-        this.akcia.getNazovAkcie(), this.akcia.getOtocenieAnimacie(), this.indexAnimacie));
+            this.akcia.getNazovAkcie(), this.akcia.getOtocenieAnimacie(),
+            this.akcia.getNazovAkcie(), this.akcia.getOtocenieAnimacie(), this.indexAnimacie));
         this.indexAnimacie++;
     }
 }

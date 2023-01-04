@@ -23,7 +23,6 @@ public class Mapa {
         this.mapaAkoObr.zmenPolohu(x, y);
         this.mapaAkoObr.zobraz();
         this.velkostMapy = velkostMapy * 4;
-        System.out.println("[INFO]: mapa nacitana");
     }
 
     /**
