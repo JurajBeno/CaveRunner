@@ -69,6 +69,11 @@ public class Hra {
         }
     }
 
+    /** Po zavolani ukonci program */
+    public void ukonci(){
+        System.exit(0);
+    }
+
     /** @param poskodenie ktore dala NP hracovi je mu poslane ak je v dosahu */
     public void podajPoskodenieHracovi(int poskodenie) {
         this.ovladanieHracom.dostanPoskodenie(poskodenie);
