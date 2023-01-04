@@ -47,6 +47,7 @@ public class Hra {
     /** 
      * Tu prebieha spustena hra kde kazdy tik vokoname akcie hraca, NP
      * a skonrolujeme ci neboli splnene podmienky konca hry
+     * ak hrac umrel tak sa ukonci animacie smrti
      */
     public void tik() {
         if (this.hraBezi) {
@@ -54,6 +55,8 @@ public class Hra {
             this.ovladanieHracom.skontrolujZivot();
             this.ovladanieHracom.vykonajAkcie();
             this.ovladanieNP.vykonajNPAkcie(this.ovladanieHracom.getPoziciaHracaNaMape());
+        } else if (this.ovladanieHracom.jeHracMrtvy()) {
+            this.ovladanieHracom.vykonajAkcie();
         }
     }
 
@@ -83,10 +86,8 @@ public class Hra {
 
     private void ukonciHru() {
         if (this.ovladanieHracom.jeHracMrtvy() || this.ovladanieNP.getPocetNP() == 0) {
-            this.hraBezi = false;
             this.koniecHryObrazok.zobraz();
-            this.manazer.prestanSpravovatObjekt(this.ovladanieHracom);
-            this.manazer.prestanSpravovatObjekt(this);
+            this.hraBezi = false;
         }
     }
 }
