@@ -13,7 +13,7 @@ public class AnimaciaNehratelnejPostavy {
      * 
      * @param x poloha postavy na horizontalnej osi obrazovky 
      * @param y poloha postavy na vertikalnej osi obrazovky
-     * (hodnoty parametrov mozu byt zaparne ak nehratelnu postavu na obrazovke este nevidno)
+     * (hodnoty parametrov mozu byt zaporne ak nehratelnu postavu na obrazovke este nevidno)
      */
     public AnimaciaNehratelnejPostavy(int x, int y) {
         this.xPoziciaNaMape = x;

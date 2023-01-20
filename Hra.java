@@ -18,7 +18,6 @@ public class Hra {
      * NP = NehratelnaPostava (programom ovladana)    
      */
     public Hra() {
-        //TODO dokoncit aby bol nepriatel otoceny spravnym smerom ked utoci na hraca, nechat hru nech dokonci animaciu umierania
         //nastavenia:
         int y = 240;
         int x = 426;
@@ -70,7 +69,7 @@ public class Hra {
     }
 
     /** Po zavolani ukonci program */
-    public void ukonci(){
+    public void ukonci() {
         System.exit(0);
     }
 

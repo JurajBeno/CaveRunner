@@ -14,6 +14,8 @@ public enum AkciaNehratelnejPostavy {
     /**
      * @param x a y suradnice v ktorom smere sa cinnost deje
      * @param otocenieAimacie je smer animacie v ktorom sa deje
+     * @param nazovAkcie nazov vykonavanej akcie v suboroch animacii
+     * @param najvacsiIndexAnimacie pocet obrazkov v danej animacii - 1
      */
     AkciaNehratelnejPostavy(String otocenieAnimacie, String nazovAkcie, int najvacsiIndexAnimacie) {
         this.otocenieAnimacie = otocenieAnimacie;
